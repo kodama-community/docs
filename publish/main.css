@@ -239,7 +239,7 @@ section.block>details[open] {
 }
 
 .block {
-  width: fit-content;
+  /* width: fit-content; */
   border-radius: var(--radius)
 }
 

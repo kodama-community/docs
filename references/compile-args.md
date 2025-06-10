@@ -4,9 +4,7 @@ title: 编译参数
 asref: true
 ---
 
-<div style="overflow-x: scroll;">
-
-```
+```plain
   -b, --base <BASE>                Base URL or publish URL (e.g. https://www.example.com/) [default: /]
   -o, --output <OUTPUT>            Path to output directory [default: ./publish]
       --assets <ASSETS>            Path to assets directory relative to the output directory [default: ./assets]
@@ -19,10 +17,8 @@ asref: true
   -h, --help                       Print help
 ```
 
-</div>
-
 - 一旦使用了 `--edit`, 则每次编译前都会在终端打印像是下面的内容, 用于通知用户此时生成的页面中包含用户设备的路径信息. 以一种醒目的方式强调此事完全必要, 因为像这样的路径中很有可能包含设备上的用户名或者其他不应该透露的信息. 
 
-  ```
+  ```plain
   [vscode://file:] EDIT MODE IS ENABLE. Please note that your disk file path information will be included in the pages!
   ```

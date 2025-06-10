@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html lang="en-US"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width"><title>编译参数</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<meta name="viewport" content="width=device-width"><title>编译参数</title><link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/typst.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/obsidian.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/rust.min.js"></script>
 
 <script>hljs.highlightAll();</script>
-<link rel="stylesheet" href="/main.css">
-<link rel="stylesheet" href="/typst.css"><link rel="preconnect" href="https://fonts.googleapis.com">
+
+<style>
+    pre {
+        background-color: transparent;
+    }
+
+    .hljs {
+        background-color: var(--background-color-code);
+    }
+
+    .hljs,
+    .hljs-subst.hljs-class .hljs-title,
+    .hljs-code,
+    .hljs-section,
+    .hljs-title.class_ {
+        color: var(--text-color);
+    }
+</style><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
 
@@ -61,8 +78,7 @@
       minRuleThickness: 0.05,
     });
   });
-</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="文档索引">« 文档索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="references-compile-args"><header><h1><span class="taxon"></span>编译参数 <a class="slug" href="/references/compile-args.html">[compile-args]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/docs/references/compile-args.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><div style="overflow-x: scroll;">
-<pre><code>  -b, --base &lt;BASE&gt;                Base URL or publish URL (e.g. https://www.example.com/) [default: /]
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='/index.html'" title="文档索引">« 文档索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="references-compile-args"><header><h1><span class="taxon"></span>编译参数 <a class="slug" href="/references/compile-args.html">[compile-args]</a><a class="slug" href="vscode://file:/Users/kokic/Repos/docs/references/compile-args.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><pre><code class="language-plain">  -b, --base &lt;BASE&gt;                Base URL or publish URL (e.g. https://www.example.com/) [default: /]
   -o, --output &lt;OUTPUT&gt;            Path to output directory [default: ./publish]
       --assets &lt;ASSETS&gt;            Path to assets directory relative to the output directory [default: ./assets]
   -r, --root &lt;ROOT&gt;                Configures the project root (for absolute paths) [default: ./]
@@ -73,10 +89,9 @@
       --edit &lt;EDIT&gt;                Display URL redirect links prepared for the editor (e.g. `vscode://file:`)
   -h, --help                       Print help
 </code></pre>
-</div>
 <ul>
 <li><p>一旦使用了 <code>--edit</code>, 则每次编译前都会在终端打印像是下面的内容, 用于通知用户此时生成的页面中包含用户设备的路径信息. 以一种醒目的方式强调此事完全必要, 因为像这样的路径中很有可能包含设备上的用户名或者其他不应该透露的信息.</p>
-<pre><code>[vscode://file:] EDIT MODE IS ENABLE. Please note that your disk file path information will be included in the pages!
+<pre><code class="language-plain">[vscode://file:] EDIT MODE IS ENABLE. Please note that your disk file path information will be included in the pages!
 </code></pre>
 </li>
 </ul>

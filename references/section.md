@@ -19,4 +19,3 @@ pub struct Section {
 [section]: /references/section.md
 
 [html]: https://developer.mozilla.org/en-US/docs/Web/HTML
-
