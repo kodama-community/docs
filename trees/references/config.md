@@ -24,6 +24,7 @@ output = "./publish"
 [serve]
 edit = "vscode://file/"
 output = "./.cache/publish"
+command = ["miniserve", "<output>", "--index", "index.html", "--pretty-urls", "--port", "8082"]
 ```
 
 ### `[kodama]`
@@ -46,6 +47,7 @@ output = "./.cache/publish"
 
 - `edit` 用于指定 `serve` 模式下用于跳转到编辑器的 url 前缀. 
 - `output` 用于指定 `serve` 模式下的网站输出路径.
+- `command` 用于指定 `serve` 时开启本地服务器的指令. 
 
 [app]: /references/app.md
 [section]: /references/section.md

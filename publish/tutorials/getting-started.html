@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>开始</title><link rel="stylesheet" href="https://kodama-community.github.io/docs/main.css">
+<link rel="stylesheet" href="https://kodama-community.github.io/docs/typst.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/obsidian.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/rust.min.js"></script>
+
+<script>hljs.highlightAll();</script>
+
+<style>
+    pre {
+        background-color: transparent;
+    }
+
+    .hljs {
+        background-color: var(--background-color-code);
+    }
+
+    .hljs,
+    .hljs-subst.hljs-class .hljs-title,
+    .hljs-code,
+    .hljs-section,
+    .hljs-title.class_ {
+        color: var(--text-color);
+    }
+</style><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    font-family: "Inria Sans", sans-serif;
+  }
+
+  pre,
+  code {
+    font-family: monospace;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Inria Sans", sans-serif;
+  }
+
+  nav {
+    font-family: "Inria Sans", sans-serif;
+  }
+
+  thead {
+    font-family: "Inria Sans", sans-serif;
+  }
+</style><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='https://kodama-community.github.io/docs/tutorials/index.html'" title="教程">« 教程</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="tutorials-getting-started"><header><h1><span class="taxon"></span>开始 <a class="slug" href="https://kodama-community.github.io/docs/tutorials/getting-started.html">[getting-started]</a></h1><div class="metadata"><ul></ul></div></header></summary>
+<p>用户在 <span class="link local"><a href="https://kodama-community.github.io/docs/tutorials/install.html" title="安装 [tutorials/install]">安装</a></span> 后可以通过执行 <code>kodama -V</code> 或 <code>kodama --version</code> 以检查是否 <span class="link local"><a href="https://kodama-community.github.io/docs/tutorials/install.html" title="安装 [tutorials/install]">安装</a></span> 成功.</p>
+<p>要创建一个新的 kodama 网站, 请执行</p>
+<pre><code class="language-sh">kodama new site &lt;PATH&gt;
+</code></pre>
+<p>用户可以在此目录的 <code>trees/</code> 文件夹下进行 <span class="link external"><a href="https://commonmark.org" title="Markdown [https://commonmark.org]">Markdown</a></span> 或 <span class="link external"><a href="https://typst.app/docs" title="Typst [https://typst.app/docs]">Typst</a></span> 写作.</p>
+<p>首次使用 <code>serve</code> 功能前, 用户应该检查 <span class="link local"><a href="https://kodama-community.github.io/docs/references/config.html" title="配置文件 [references/config]">配置文件</a></span> 中 <code>[serve]</code> 字典的 <code>command</code> 键, 默认值调用了 <span class="link external"><a href="https://github.com/svenstaro/miniserve" title="miniserve [https://github.com/svenstaro/miniserve]">miniserve</a></span> 程序, 因此用户可以选择安装 <span class="link external"><a href="https://github.com/svenstaro/miniserve" title="miniserve [https://github.com/svenstaro/miniserve]">miniserve</a></span> 或者将其修改为其他可用的本地服务器. 如安装了 <span class="link external"><a href="https://www.python.org" title="python [https://www.python.org]">python</a></span> 的用户可以将其替换为</p>
+<pre><code class="language-toml">command = ["python", "-m", "http.server", "-d", "&lt;output&gt;"]
+</code></pre>
+</details></section><footer><section class="block"><details open><summary><header><h1>References</h1></header></summary><section class="block" data-taxon=""><details ><summary id="references-config"><header><h1><span class="taxon"></span>配置文件 <a class="slug" href="https://kodama-community.github.io/docs/references/config.html">[config]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="https://kodama-community.github.io/docs/references/index.html" title="参考 [references/index]">参考</a></span></li></ul></div></header></summary>
+<p>配置文件 <code>Kodama.toml</code> 目前可通过 <code>kodama new c</code> 单独创建, 或者在新建 <span class="link local"><a href="https://kodama-community.github.io/docs/references/app.html" title="Kodama 程序 [references/app]">Kodama</a></span> 站点时自动生成. 配置文件通常包含以下内容:</p>
+<pre><code class="language-toml">[kodama]
+trees = "trees" 
+assets = "assets"
+base-url = "/"
+
+[build]
+typst-root = "./"
+short-slug = false
+pretty-urls = false
+footer-mode = "link"
+inline-css = false
+output = "./publish"
+
+[serve]
+edit = "vscode://file/"
+output = "./.cache/publish"
+command = ["miniserve", "&lt;output&gt;", "--index", "index.html", "--pretty-urls", "--port", "8082"]
+</code></pre>
+<h3><code>[kodama]</code></h3>
+<ul>
+<li><code>trees</code> 用于指定文档目录, 即 <code>index.md</code> 等文件所在的文件夹.</li>
+<li><code>assets</code> 用于指定资源目录, 如图片、字体等文件. <code>assets</code> 会在每次构建时自动同步到 <code>publish/&lt;assets&gt;</code>.</li>
+<li><code>base-url</code> 用于指定部署到的域名根路径.</li>
+</ul>
+<h3><code>[build]</code></h3>
+<ul>
+<li><code>typst-root</code> 用于指定 Typst 构建时的根路径, 见 <span class="link external"><a href="https://typst.app/docs/reference/syntax/#project-root" title="project root [https://typst.app/docs/reference/syntax/#project-root]">project root</a></span>.</li>
+<li><code>short-slug</code> 开启后网页中每个 <span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]">节</a></span> 的 <code>slug</code> 只展示最后一部分.</li>
+<li><code>pretty-urls</code> 开启后网页中每个内部链接将去除 <code>.html</code> 后缀.</li>
+<li><code>footer-mode</code> 用于指定 <span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]">节</a></span> 的页脚部分是否嵌入关联或被关联 <span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]">节</a></span> 的正文. 值只能是 <code>link</code> 或 <code>embed</code>.</li>
+<li><code>inline-css</code> 开启后将内联 <code>main.css</code> 等 <span class="link external"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS" title="CSS [https://developer.mozilla.org/en-US/docs/Web/CSS]">CSS</a></span> 文件.</li>
+<li><code>output</code> 用于指定 <code>build</code> 模式下的网站输出路径.</li>
+</ul>
+<h3><code>[serve]</code></h3>
+<ul>
+<li><code>edit</code> 用于指定 <code>serve</code> 模式下用于跳转到编辑器的 url 前缀.</li>
+<li><code>output</code> 用于指定 <code>serve</code> 模式下的网站输出路径.</li>
+<li><code>command</code> 用于指定 <code>serve</code> 时开启本地服务器的指令.</li>
+</ul>
+</details></section></details></section></footer></article>
+
+</div></body></html>

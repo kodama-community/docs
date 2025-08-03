@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>链接</title><link rel="stylesheet" href="https://kodama-community.github.io/docs/main.css">
+<link rel="stylesheet" href="https://kodama-community.github.io/docs/typst.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/obsidian.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/rust.min.js"></script>
+
+<script>hljs.highlightAll();</script>
+
+<style>
+    pre {
+        background-color: transparent;
+    }
+
+    .hljs {
+        background-color: var(--background-color-code);
+    }
+
+    .hljs,
+    .hljs-subst.hljs-class .hljs-title,
+    .hljs-code,
+    .hljs-section,
+    .hljs-title.class_ {
+        color: var(--text-color);
+    }
+</style><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    font-family: "Inria Sans", sans-serif;
+  }
+
+  pre,
+  code {
+    font-family: monospace;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Inria Sans", sans-serif;
+  }
+
+  nav {
+    font-family: "Inria Sans", sans-serif;
+  }
+
+  thead {
+    font-family: "Inria Sans", sans-serif;
+  }
+</style><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"
+  integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script></head><body><header class="header"><nav class="nav"><div class="logo"><span onclick="window.location.href='https://kodama-community.github.io/docs/index.html'" title="文档索引">« 文档索引</span></div></nav></header><div id="grid-wrapper"><article><section class="block" data-taxon=""><details open><summary id="references-link"><header><h1><span class="taxon"></span>链接 <a class="slug" href="https://kodama-community.github.io/docs/references/link.html">[link]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="https://kodama-community.github.io/docs/references/index.html" title="参考 [references/index]">参考</a></span></li></ul></div></header></summary>
+<p><span class="link local"><a href="https://kodama-community.github.io/docs/references/app.html" title="Kodama 程序 [references/app]">Kodama 程序</a></span> 中的 <span class="link local"><a href="https://kodama-community.github.io/docs/references/link.html" title="链接 [references/link]">链接</a></span> 语法与 <span class="link external"><a href="https://developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Howto/Markdown_in_MDN" title="Markdown [https://developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Howto/Markdown_in_MDN]">Markdown</a></span> 链接语法一致, 但前者会依据链接前缀区分一个链接是外部或者内部的, 因为内部链接在 <span class="link local"><a href="https://kodama-community.github.io/docs/references/app.html" title="Kodama 程序 [references/app]">Kodama 程序</a></span> 当中确实是一种特殊的存在, 它自动地将链接到的 <span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]">节</a></span> 和被链接的 <span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]">节</a></span> 关联起来. 除非特别强调, 否则我们所说的 <span class="link local"><a href="https://kodama-community.github.io/docs/references/link.html" title="链接 [references/link]">链接</a></span> 都是指内部链接.</p>
+<p>这种关联指的是, 如果 <span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]">节</a></span> $A$ 链接了 <span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]">节</a></span> $B$, 那么我们不止可以从 $A$ 所在的页面跳转到 $B$, 也应当有一种方式可以让我们从 $B$ 回到 $A$, 这个流程在如今通常被称为双向连接. 对于使用 <span class="link local"><a href="https://kodama-community.github.io/docs/references/app.html" title="Kodama 程序 [references/app]">Kodama 程序</a></span> 的用户来说, 这种双向连接应当是自动生成.</p>
+</details></section><footer><section class="block"><details open><summary><header><h1>References</h1></header></summary><section class="block" data-taxon=""><details ><summary id="references-app"><header><h1><span class="taxon"></span>Kodama 程序 <a class="slug" href="https://kodama-community.github.io/docs/references/app.html">[app]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="https://kodama-community.github.io/docs/references/index.html" title="参考 [references/index]">参考</a></span></li></ul></div></header></summary>
+<p>仓库链接: <span class="link external"><a href="https://github.com/kokic/kodama" title="github.com/kokic/kodama [https://github.com/kokic/kodama]">github.com/kokic/kodama</a></span>.</p>
+</details></section><section class="block" data-taxon=""><details ><summary id="references-section"><header><h1><span class="taxon"></span>节 <a class="slug" href="https://kodama-community.github.io/docs/references/section.html">[section]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="https://kodama-community.github.io/docs/references/index.html" title="参考 [references/index]">参考</a></span></li></ul></div></header></summary>
+<p><span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]">节</a></span> 是 <span class="link local"><a href="https://kodama-community.github.io/docs/references/app.html" title="Kodama 程序 [references/app]">Kodama 写作</a></span> 中的基本概念. 每个 <span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]">节</a></span> 都将被处理为一个 <span class="link external"><a href="https://developer.mozilla.org/en-US/docs/Web/HTML" title="HTML [https://developer.mozilla.org/en-US/docs/Web/HTML]">HTML</a></span> 文件. 其 <span class="link external"><a href="https://github.com/kokic/kodama/blob/main/src/compiler/section.rs" title="定义 [https://github.com/kokic/kodama/blob/main/src/compiler/section.rs]">定义</a></span> 如下</p>
+<pre><code class="language-rs">pub struct Section {
+    pub metadata: EntryMetaData,
+    pub children: SectionContents,
+    pub option: SectionOption,
+    pub references: HashSet&lt;Slug&gt;,
+}
+</code></pre>
+</details></section></details></section></footer></article>
+
+</div></body></html>
