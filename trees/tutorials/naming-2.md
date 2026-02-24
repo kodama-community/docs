@@ -7,4 +7,4 @@ title: 语义风格
 
 如果你是一个从其他 [SSG](https://developer.mozilla.org/en-US/docs/Glossary/SSG) 工具迁移而来的用户, 你博客文章的文件名大概率就是这种方式. 只要你不是有特别严重的强迫症, 用这种方式命名文件并不会占用太多时间. 
 
-也不必刻意要求文件名能精确描述文件内容, 结合 [编号系统](/tutorials/name-convention-1.md) 一起使用会使名字的灵活性更高. 
+也不必刻意要求文件名能精确描述文件内容, 结合 [编号系统](../tutorials/name-convention-1.md) 一起使用会使名字的灵活性更高. 

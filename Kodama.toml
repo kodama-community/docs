@@ -2,6 +2,19 @@
 trees = "trees"
 assets = "assets"
 base-url = "https://kodama-community.github.io/docs/"
+themes = []
+
+[toc]
+placement = "right"
+sticky = true
+mobile-sticky = true
+max-width = "max-content"
+
+[text]
+edit = "[edit]"
+toc = "Table of Contents"
+references = "References"
+backlinks = "Backlinks"
 
 [build]
 typst-root = "./"
@@ -9,7 +22,9 @@ short-slug = true
 pretty-urls = false
 footer-mode = "embed"
 inline-css = false
+asref = false
 output = "./publish"
+edit = "https://github.com/kodama-community/docs/edit/main/trees/"
 
 [serve]
 edit = "vscode://file/"
