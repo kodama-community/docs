@@ -1,0 +1,202 @@
+{
+  "references/index": {
+    "scope": "markdown",
+    "prefix": "参考 [references/index]",
+    "body": [
+      "[参考]: /trees/references/index.md"
+    ],
+    "description": ""
+  },
+  "tutorials/upgrade-config": {
+    "scope": "markdown",
+    "prefix": "升级配置 [tutorials/upgrade-config]",
+    "body": [
+      "[升级配置]: /trees/tutorials/upgrade-config.md"
+    ],
+    "description": ""
+  },
+  "latest": {
+    "scope": "markdown",
+    "prefix": "1.0.0 release - forest [latest]",
+    "body": [
+      "[1.0.0-release---forest]: /trees/latest.md"
+    ],
+    "description": ""
+  },
+  "examples/index": {
+    "scope": "markdown",
+    "prefix": "示例 [examples/index]",
+    "body": [
+      "[示例]: /trees/examples/index.md"
+    ],
+    "description": ""
+  },
+  "tutorials/getting-started": {
+    "scope": "markdown",
+    "prefix": "开始 [tutorials/getting-started]",
+    "body": [
+      "[开始]: /trees/tutorials/getting-started.md"
+    ],
+    "description": ""
+  },
+  "references/section": {
+    "scope": "markdown",
+    "prefix": "节 [references/section]",
+    "body": [
+      "[节]: /trees/references/section.md"
+    ],
+    "description": ""
+  },
+  "references/config": {
+    "scope": "markdown",
+    "prefix": "配置文件 [references/config]",
+    "body": [
+      "[配置文件]: /trees/references/config.md"
+    ],
+    "description": ""
+  },
+  "tutorials/new-site": {
+    "scope": "markdown",
+    "prefix": "新建站点 [tutorials/new-site]",
+    "body": [
+      "[新建站点]: /trees/tutorials/new-site.md"
+    ],
+    "description": ""
+  },
+  "tutorials/HTNS": {
+    "scope": "markdown",
+    "prefix": "棂音 [tutorials/HTNS]",
+    "body": [
+      "[棂音]: /trees/tutorials/HTNS.md"
+    ],
+    "description": ""
+  },
+  "tutorials/highlight": {
+    "scope": "markdown",
+    "prefix": "代码高亮 [tutorials/highlight]",
+    "body": [
+      "[代码高亮]: /trees/tutorials/highlight.md"
+    ],
+    "description": ""
+  },
+  "tutorials/install": {
+    "scope": "markdown",
+    "prefix": "安装 [tutorials/install]",
+    "body": [
+      "[安装]: /trees/tutorials/install.md"
+    ],
+    "description": ""
+  },
+  "references/local-embed": {
+    "scope": "markdown",
+    "prefix": "嵌入 [references/local-embed]",
+    "body": [
+      "[嵌入]: /trees/references/local-embed.md"
+    ],
+    "description": ""
+  },
+  "references/feature-typst": {
+    "scope": "markdown",
+    "prefix": "零成本使用 Typst 写作 [references/feature-typst]",
+    "body": [
+      "[零成本使用-typst-写作]: /trees/references/feature-typst.typst"
+    ],
+    "description": ""
+  },
+  "references/app": {
+    "scope": "markdown",
+    "prefix": "Kodama 程序 [references/app]",
+    "body": [
+      "[kodama-程序]: /trees/references/app.md"
+    ],
+    "description": ""
+  },
+  "tutorials/naming": {
+    "scope": "markdown",
+    "prefix": "命名约定 [tutorials/naming]",
+    "body": [
+      "[命名约定]: /trees/tutorials/naming.md"
+    ],
+    "description": ""
+  },
+  "tutorials/NCNS": {
+    "scope": "markdown",
+    "prefix": "编号系统 [tutorials/NCNS]",
+    "body": [
+      "[编号系统]: /trees/tutorials/NCNS.md"
+    ],
+    "description": ""
+  },
+  "tutorials/NCSM": {
+    "scope": "markdown",
+    "prefix": "语义风格 [tutorials/NCSM]",
+    "body": [
+      "[语义风格]: /trees/tutorials/NCSM.md"
+    ],
+    "description": ""
+  },
+  "references/link": {
+    "scope": "markdown",
+    "prefix": "链接 [references/link]",
+    "body": [
+      "[链接]: /trees/references/link.md"
+    ],
+    "description": ""
+  },
+  "versions": {
+    "scope": "markdown",
+    "prefix": "版本信息 [versions]",
+    "body": [
+      "[版本信息]: /trees/versions.md"
+    ],
+    "description": ""
+  },
+  "tutorials/index": {
+    "scope": "markdown",
+    "prefix": "教程 [tutorials/index]",
+    "body": [
+      "[教程]: /trees/tutorials/index.md"
+    ],
+    "description": ""
+  },
+  "tutorials/writing": {
+    "scope": "markdown",
+    "prefix": "写作 [tutorials/writing]",
+    "body": [
+      "[写作]: /trees/tutorials/writing.md"
+    ],
+    "description": ""
+  },
+  "index": {
+    "scope": "markdown",
+    "prefix": "文档索引 [index]",
+    "body": [
+      "[文档索引]: /trees/index.md"
+    ],
+    "description": ""
+  },
+  "references/feature-color": {
+    "scope": "markdown",
+    "prefix": "色彩特性 [references/feature-color]",
+    "body": [
+      "[色彩特性]: /trees/references/feature-color.md"
+    ],
+    "description": ""
+  },
+  "references/link-local": {
+    "scope": "markdown",
+    "prefix": "站内引用 [references/link-local]",
+    "body": [
+      "[站内引用]: /trees/references/link-local.md"
+    ],
+    "description": ""
+  },
+  "examples/highlight.js": {
+    "scope": "markdown",
+    "prefix": "Highlight.js [examples/highlight.js]",
+    "body": [
+      "[highlight.js]: /trees/examples/highlight.js.md"
+    ],
+    "description": ""
+  }
+}

@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width"><title>新建站点</title><link rel="icon" href="https://kodama-community.github.io/docs/assets/favicon.ico" /><template id="inline-section">
+  <section class="inline block" data-taxon="">
+    <details open="">
+      <summary>
+        <header>
+          <h1>
+            <span class="taxon"></span>
+            <div id="title"></div>
+          </h1>
+        </header>
+      </summary>
+      <div id="content"></div>
+    </details>
+  </section>
+</template>
+
+<script>
+  function inlineSection(template, section, taxon, title) {
+    taxon = taxon || section.getAttribute("taxon") || null;
+    title = title || section.getAttribute("title") || "";
+
+    const clone = template.content.cloneNode(true);
+    clone.querySelector("section").dataset.taxon = taxon;
+    clone.querySelector(".taxon").textContent = taxon ? `${taxon}. ` : "";
+    clone.querySelector("#title").replaceWith(title);
+    clone.querySelector("#content").replaceWith(...section.childNodes);
+
+    if (section.hasAttribute("close")) {
+      clone.querySelector("details").removeAttribute("open");
+    }
+    
+    section.replaceWith(clone);
+  }
+
+  const tagTaxonTable = {
+    "exegesis": "Exegesis",
+    "definition": "Definition",
+    "proposition": "Proposition",
+    "remark": "Remark",
+    "conjecture": "Conjecture",
+    "postulate": "Postulate",
+    "claim": "Claim",
+    "observation": "Observation",
+    "fact": "Fact",
+    "hypothesis": "Hypothesis",
+    "axiom": "Axiom",
+    "lemma": "Lemma",
+    "theorem": "Theorem",
+    "corollary": "Corollary",
+    "example": "Example", 
+    "proof": "Proof",
+  };
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const template = document.getElementById("inline-section");
+
+    [...document.getElementsByTagName("block")].forEach(section => inlineSection(template, section));
+
+    Object.entries(tagTaxonTable).forEach(([tag, taxon]) => {
+      [...document.getElementsByTagName(tag)].forEach(section => inlineSection(template, section, taxon));
+    });
+  });
+</script><script>
+  function toggleDetailsOpen() {
+    const details = document.querySelector("#toc>div>details");
+    if (!details) return;
+
+    if (window.matchMedia("(max-width: 1000px)").matches) {
+      details.removeAttribute("open");
+    } else {
+      details.setAttribute("open", "");
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", toggleDetailsOpen);
+  window.addEventListener("resize", toggleDetailsOpen);
+</script><style>
+  theme-option {
+    display: inline-block;
+  }
+
+  theme-option>input {
+    display: none;
+  }
+
+  theme-option>label {
+    color: var(--slug-color);
+  }
+
+  theme-option>label:hover {
+    background-color: var(--hover-color-link);
+  }
+
+  theme-option:has(input:checked)>label {
+    color: var(--link-color);
+  }
+
+  theme-option>label::before {
+    content: "[";
+    color: rgba(0, 0, 0, 0);
+  }
+
+  theme-option>label::after {
+    content: "]";
+    color: rgba(0, 0, 0, 0);
+  }
+
+  theme-option:has(input:checked)>label::before {
+    color: var(--link-color);
+  }
+
+  theme-option:has(input:checked)>label::after {
+    color: var(--link-color);
+  }
+</style>
+
+<template id="theme-option-template">
+  <input type="radio" name="theme" />
+  <label></label>
+</template>
+
+<script>
+  const THEME_KEY = `kodama-theme`;
+
+  function storeSelectedTheme(name) {
+    localStorage.setItem(THEME_KEY, name);
+  }
+
+  function getCurrentTheme() {
+    return localStorage.getItem(THEME_KEY) || window.primaryTheme;
+  }
+
+  function selectTheme(themeName) {
+    storeSelectedTheme(themeName);
+    requestAnimationFrame(applyDynamicColorInvert);
+  }
+
+  function applyFavorTheme() {
+    const favoredTheme = getCurrentTheme();
+    if (favoredTheme) {
+      const selector = `input[type='radio'][id='${favoredTheme}']`;
+      const favoredOption = window.themeOptions.querySelector(selector);
+
+      if (favoredOption) {
+        favoredOption.checked = true;
+      } else if (window.primaryOption) {
+        // Fallback to primary theme, if the favored theme is not found
+        // e.g., when the theme options have changed, and the stored theme is no longer available.
+        window.primaryOption.checked = true;
+      }
+    }
+    applyDynamicColorInvert();
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    window.themeOptions = document.getElementById("theme-options");
+    const templateContent = document.getElementById("theme-option-template").content;
+
+    customElements.define(
+      "theme-option",
+      class extends HTMLElement {
+        constructor() {
+          super();
+
+          const node = templateContent.cloneNode(true);
+          const themeName = this.getAttribute("name");
+
+          const input = node.querySelector("input");
+          input.setAttribute("id", themeName);
+          input.setAttribute("value", themeName);
+
+          const label = node.querySelector("label");
+          label.setAttribute("for", themeName);
+          label.addEventListener("click", () => selectTheme(themeName));
+
+          while (this.firstChild) {
+            label.appendChild(this.firstChild);
+          }
+          this.appendChild(node);
+        }
+      },
+    );
+
+    window.primaryOption = window.themeOptions.querySelector("input[type='radio']");
+    window.primaryTheme = primaryOption?.value;
+
+    applyFavorTheme();
+  });
+</script>
+
+<script>
+  const clamp = (value) => Math.max(0, Math.min(255, value));
+
+  const multiply = ([r, g, b], matrix) => {
+    const nr = clamp(r * matrix[0] + g * matrix[1] + b * matrix[2]);
+    const ng = clamp(r * matrix[3] + g * matrix[4] + b * matrix[5]);
+    const nb = clamp(r * matrix[6] + g * matrix[7] + b * matrix[8]);
+    return [nr, ng, nb];
+  };
+
+  const hueRotate = ([r, g, b], angle = 0) => {
+    const rad = (angle / 180) * Math.PI;
+    const sin = Math.sin(rad);
+    const cos = Math.cos(rad);
+    const matrix = [
+      0.213 + cos * 0.787 - sin * 0.213,
+      0.715 - cos * 0.715 - sin * 0.715,
+      0.072 - cos * 0.072 + sin * 0.928,
+      0.213 - cos * 0.213 + sin * 0.143,
+      0.715 + cos * 0.285 + sin * 0.140,
+      0.072 - cos * 0.072 - sin * 0.283,
+      0.213 - cos * 0.213 - sin * 0.787,
+      0.715 - cos * 0.715 + sin * 0.715,
+      0.072 + cos * 0.928 + sin * 0.072,
+    ];
+    return multiply([r, g, b], matrix);
+  };
+
+  const grayscale = ([r, g, b], value = 1) => {
+    const matrix = [
+      0.2126 + 0.7874 * (1 - value),
+      0.7152 - 0.7152 * (1 - value),
+      0.0722 - 0.0722 * (1 - value),
+      0.2126 - 0.2126 * (1 - value),
+      0.7152 + 0.2848 * (1 - value),
+      0.0722 - 0.0722 * (1 - value),
+      0.2126 - 0.2126 * (1 - value),
+      0.7152 - 0.7152 * (1 - value),
+      0.0722 + 0.9278 * (1 - value),
+    ];
+    return multiply([r, g, b], matrix);
+  };
+
+  const sepia = ([r, g, b], value = 1) => {
+    const matrix = [
+      0.393 + 0.607 * (1 - value),
+      0.769 - 0.769 * (1 - value),
+      0.189 - 0.189 * (1 - value),
+      0.349 - 0.349 * (1 - value),
+      0.686 + 0.314 * (1 - value),
+      0.168 - 0.168 * (1 - value),
+      0.272 - 0.272 * (1 - value),
+      0.534 - 0.534 * (1 - value),
+      0.131 + 0.869 * (1 - value),
+    ];
+    return multiply([r, g, b], matrix);
+  };
+
+  const saturate = ([r, g, b], value = 1) => {
+    const matrix = [
+      0.213 + 0.787 * value,
+      0.715 - 0.715 * value,
+      0.072 - 0.072 * value,
+      0.213 - 0.213 * value,
+      0.715 + 0.285 * value,
+      0.072 - 0.072 * value,
+      0.213 - 0.213 * value,
+      0.715 - 0.715 * value,
+      0.072 + 0.928 * value,
+    ];
+    return multiply([r, g, b], matrix);
+  };
+
+  const linear = ([r, g, b], slope = 1, intercept = 0) => {
+    const scale = 255;
+    return [
+      clamp(r * slope + intercept * scale),
+      clamp(g * slope + intercept * scale),
+      clamp(b * slope + intercept * scale),
+    ];
+  };
+
+  const brightness = (rgb, value = 1) => linear(rgb, value);
+  const contrast = (rgb, value = 1) => linear(rgb, value, -0.5 * value + 0.5);
+
+  const invert = ([r, g, b], value = 1) => {
+    const nr = (value + r / 255 * (1 - 2 * value)) * 255;
+    const ng = (value + g / 255 * (1 - 2 * value)) * 255;
+    const nb = (value + b / 255 * (1 - 2 * value)) * 255;
+    return [clamp(nr), clamp(ng), clamp(nb)];
+  };
+
+  // Code taken from https://stackoverflow.com/a/9493060/2688027, licensed under CC BY-SA.
+  const rgbToHsl = (r, g, b) => {
+    r /= 255; g /= 255; b /= 255;
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    let h, s, l = (max + min) / 2;
+    if (max === min) {
+      h = s = 0;
+    } else {
+      const d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      switch (max) {
+        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+        case g: h = (b - r) / d + 2; break;
+        case b: h = (r - g) / d + 4; break;
+      }
+      h /= 6;
+    }
+    return { h: h * 100, s: s * 100, l: l * 100 };
+  };
+
+  const applyFilters = (rgb, [inv, sep, sat, hue, bri, con]) => {
+    let color = [...rgb];
+    color = invert(color, inv / 100);
+    color = sepia(color, sep / 100);
+    color = saturate(color, sat / 100);
+    color = hueRotate(color, hue * 3.6);
+    color = brightness(color, bri / 100);
+    color = contrast(color, con / 100);
+    return color;
+  };
+
+  const lossFn = (targetRgb, filters) => {
+    const resultRgb = applyFilters([0, 0, 0], filters);
+    const targetHsl = rgbToHsl(...targetRgb);
+    const resultHsl = rgbToHsl(...resultRgb);
+    return (
+      Math.abs(resultRgb[0] - targetRgb[0]) +
+      Math.abs(resultRgb[1] - targetRgb[1]) +
+      Math.abs(resultRgb[2] - targetRgb[2]) +
+      Math.abs(resultHsl.h - targetHsl.h) +
+      Math.abs(resultHsl.s - targetHsl.s) +
+      Math.abs(resultHsl.l - targetHsl.l)
+    );
+  };
+
+  const fix = (value, idx) => {
+    let max = 100;
+    if (idx === 2) max = 7500;                  // saturate
+    else if (idx === 4 || idx === 5) max = 200; // brightness, contrast
+    if (idx === 3) { // hue-rotate
+      if (value > max) return value % max;
+      if (value < 0) return max + (value % max);
+      return value;
+    }
+    return Math.max(0, Math.min(max, value));
+  };
+
+  const spsa = (targetRgb, A, a, c, initial, iters) => {
+    const alpha = 1;
+    const gamma = 1 / 6;
+    let values = [...initial];
+    let best = [...values];
+    let bestLoss = Infinity;
+
+    for (let k = 0; k < iters; k++) {
+      const ck = c / Math.pow(k + 1, gamma);
+      const deltas = Array(6).fill().map(() => (Math.random() > 0.5 ? 1 : -1));
+      const highArgs = values.map((v, i) => v + ck * deltas[i]);
+      const lowArgs = values.map((v, i) => v - ck * deltas[i]);
+      const lossDiff = lossFn(targetRgb, highArgs) - lossFn(targetRgb, lowArgs);
+
+      values = values.map((v, i) => {
+        const g = (lossDiff / (2 * ck)) * deltas[i];
+        const ak = a[i] / Math.pow(A + k + 1, alpha);
+        return fix(v - ak * g, i);
+      });
+
+      const loss = lossFn(targetRgb, values);
+      if (loss < bestLoss) {
+        best = [...values];
+        bestLoss = loss;
+      }
+    }
+    return { values: best, loss: bestLoss };
+  };
+
+  // Threshold for acceptable color loss. This value determines when the SPSA algorithm stops early.
+  // A loss below this value is considered visually indistinguishable for most use cases.
+  // The value 25 was determined empirically to balance performance and color accuracy.
+  const ACCEPTABLE_COLOR_LOSS = 25;
+
+  const solveWide = (targetRgb) => {
+    const A = 5;
+    const c = 15;
+    const a = [60, 180, 18000, 600, 1.2, 1.2];
+    let best = { loss: Infinity, values: null };
+    for (let i = 0; best.loss > ACCEPTABLE_COLOR_LOSS && i < 3; i++) {
+      const initial = [50, 20, 3750, 50, 100, 100];
+      const result = spsa(targetRgb, A, a, c, initial, 1000);
+      if (result.loss < best.loss) best = result;
+    }
+    return best;
+  };
+
+  const solveNarrow = (targetRgb, wideResult) => {
+    const A = wideResult.loss;
+    const c = 2;
+    const A1 = A + 1;
+    const a = [0.25 * A1, 0.25 * A1, A1, 0.25 * A1, 0.2 * A1, 0.2 * A1];
+    return spsa(targetRgb, A, a, c, wideResult.values, 500);
+  };
+
+  const cssFilterString = (filters) => {
+    const [inv, sep, sat, hue, bri, con] = filters.map(Math.round);
+    const hueDeg = Math.round(hue * 3.6);
+    return `filter: invert(${inv}%) sepia(${sep}%) saturate(${sat}%) hue-rotate(${hueDeg}deg) brightness(${bri}%) contrast(${con}%);`;
+  };
+
+  const solveColor = (targetRgb) => {
+    const wide = solveWide(targetRgb);
+    const narrow = solveNarrow(targetRgb, wide);
+    return {
+      values: narrow.values,
+      loss: narrow.loss,
+      filter: cssFilterString(narrow.values),
+    };
+  };
+
+  // Reuse a single canvas / context to avoid memory leaks
+  const colorParseCanvas = document.createElement('canvas');
+  colorParseCanvas.width = 1;
+  colorParseCanvas.height = 1;
+  const colorParseContext = colorParseCanvas.getContext('2d');
+
+  const toRGBArray = (cssColor) => {
+    colorParseContext.fillStyle = cssColor;
+    colorParseContext.fillRect(0, 0, 1, 1);
+
+    // The `getImageData().data` returns a Uint8ClampedArray with 4 values per pixel (RGBA). 
+    // also see: https://developer.mozilla.org/zh-CN/docs/Web/API/ImageData/data
+    const rgba = colorParseContext.getImageData(0, 0, 1, 1).data;
+    return Array.from(rgba.slice(0, 3));
+  };
+
+  const DYNAMIC_STYLE_ID = 'dynamic-color-invert-style';
+  const SOLVED_COLOR_KEY = "solved-";
+
+  function memorizedSolvedFilter(color) {
+    const colorKey = SOLVED_COLOR_KEY + color;
+    const storedFilterOption = localStorage.getItem(colorKey);
+    if (storedFilterOption) {
+      return storedFilterOption;
+    } else {
+      const filter = solveColor(color).filter;
+      localStorage.setItem(colorKey, filter);
+      return filter;
+    }
+  }
+
+  function applyDynamicColorInvert() {
+    const textColor = getComputedStyle(document.body).getPropertyValue('--text-color');
+    if (textColor && textColor.length > 0) {
+      const rgb = toRGBArray(textColor);
+      const filter = memorizedSolvedFilter(rgb);
+
+      const existingStyle = document.getElementById(DYNAMIC_STYLE_ID);
+      if (existingStyle) {
+        existingStyle.textContent = `.color-invert {${filter}}`;
+      } else {
+        const style = document.createElement('style');
+        style.id = DYNAMIC_STYLE_ID;
+        style.textContent = `.color-invert {${filter}}`;
+        document.head.appendChild(style);
+      }
+    }
+  }
+</script><script>
+  (() => {
+    const url = "/kodama.reload";
+    const interval = 1000; // 1 second
+
+    let lastVersion = null;
+
+    async function check() {
+      try {
+        const res = await fetch(url + "?t=" + Date.now(), { cache: "no-store" });
+        if (!res.ok) {
+          throw new Error("reload marker not ready");
+        }
+        const version = (await res.text()).trim();
+        if (lastVersion && version && version !== lastVersion) {
+          location.reload();
+          return;
+        }
+        lastVersion = version || lastVersion;
+      } catch (e) {
+        // Ignore
+        console.warn("Reload check failed:", e);
+      }
+
+      setTimeout(check, interval);
+    }
+
+    check();
+  })();
+</script>
+<!-- Also see: https://katex.org/docs/autorender -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" integrity="sha384-WcoG4HRXMzYzfCgiyfrySxx90XSl2rxY5mnVY5TwtWE6KLrArNKn0T/mOgNL0Mmi" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js" integrity="sha384-J+9dG2KMoiR9hqcFao0IBLwxt6zpcyN68IgwzsCSkbreXUjmNVRhPFTssqdSGjwQ" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<!-- Also see: https://github.com/KaTeX/KaTeX/tree/main/contrib/copy-tex -->
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/copy-tex.min.js" integrity="sha384-HORx6nWi8j5/mYA+y57/9/CZc5z8HnEw4WUZWy5yOn9ToKBv1l58vJaufFAn9Zzi" crossorigin="anonymous"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true },
+      ],
+      trust: true,
+      strict: false,
+      throwOnError: false,
+      minRuleThickness: 0.05,
+    });
+  });
+</script>
+<link rel="stylesheet" href="https://kodama-community.github.io/docs/main.css"><style>
+@media only screen and (min-width: 1000px) {
+  #grid-wrapper { grid-template-columns: var(--article-max-width) var(--toc-max-width); }
+  nav#toc { max-width: max-content; }
+}
+</style><link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+  rel="stylesheet" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/obsidian.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/shell.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/rust.min.js"></script>
+
+<script>
+  hljs.configure({ cssSelector: 'pre code[class^="language-"]' });
+  hljs.highlightAll();
+</script>
+
+<style>
+  pre {
+    background-color: transparent;
+  }
+
+  .hljs {
+    background-color: var(--background-color-code);
+  }
+
+  .hljs,
+  .hljs-subst.hljs-class .hljs-title,
+  .hljs-code,
+  .hljs-section,
+  .hljs-title.class_ {
+    color: var(--text-color);
+  }
+</style></head><body><header class="header"><nav class="nav"><div class="logo"><span class="cursor-pointer" onclick="window.location.href='https://kodama-community.github.io/docs/tutorials/getting-started.html'" title="开始">« <span lang="zh">开始</span></span></div></nav></header><div id="grid-wrapper" style="grid-template-areas: 'article toc';" data-base-url="https://kodama-community.github.io/docs/"><nav id="toc" class="sticky-nav mobile-sticky-nav"><div id="theme-options"></div></nav>
+
+<article><section class="block" data-taxon=""><details open><summary id="tutorials-new-site"><header><h1><span class="taxon"></span><span lang="zh">新建站点</span> <a class="slug" href="https://kodama-community.github.io/docs/tutorials/new-site.html">[new-site]</a><a class="edit" href="https://github.com/kodama-community/docs/edit/main/trees/tutorials/new-site.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><span lang="zh">用户在</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/tutorials/install.html" title="安装 [tutorials/install]">安装</a></span> <span lang="zh">后</span>, <span lang="zh">可以执行</span> <code>kodama -V</code> <span lang="zh">或</span> <code>kodama --version</code> <span lang="zh">检查是否安装成功</span>.</p>
+<p><span lang="zh">要创建一个新的</span> Kodama <span lang="zh">站点</span>, <span lang="zh">请执行</span>:</p>
+<pre><code class="language-sh">kodama new site &lt;PATH&gt;
+</code></pre>
+<p><span lang="zh">用户可以在该目录的</span> <code>trees/</code> <span lang="zh">下进行</span> <span class="link external"><a href="https://commonmark.org" title="Markdown [https://commonmark.org]">Markdown</a></span> <span lang="zh">或</span> <span class="link external"><a href="https://typst.app/docs" title="Typst [https://typst.app/docs]">Typst</a></span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/tutorials/writing.html" title="写作 [tutorials/writing]">写作</a></span>.</p>
+<p><span lang="zh">首次使用</span> <code>serve</code> <span lang="zh">前</span>, <span lang="zh">建议检查</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/config.html" title="配置文件 [references/config]">配置文件</a></span> <span lang="zh">中</span> <code>[serve]</code> <span lang="zh">的</span> <code>command</code>. <span lang="zh">默认命令依赖</span> <span class="link external"><a href="https://github.com/svenstaro/miniserve" title="miniserve [https://github.com/svenstaro/miniserve]">miniserve</a></span>, <span lang="zh">你可以安装它</span>, <span lang="zh">或改为当前设备可用的本地服务命令</span>. <span lang="zh">例如</span>:</p>
+<pre><code class="language-toml">command = ["python", "-m", "http.server", "-d", "&lt;output&gt;"]
+</code></pre>
+<p><span lang="zh">如果用户需要生成</span> <span lang="zh"></span><span lang="zh"></span><span class="link external"><a href="https://code.visualstudio.com/docs/editing/userdefinedsnippets" title="VSCode 风格的 snippets 文件 [https://code.visualstudio.com/docs/editing/userdefinedsnippets]">VSCode 风格的 snippets 文件</a></span>, <span lang="zh">进而借助其</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]"><span lang="zh">节</span></a></span> <span lang="zh">代码补全功能</span> <sup class="footnote-reference" id="tutorials_new-site_editor-back"><a href="#tutorials_new-site_editor">1</a></sup>, <span lang="zh">可在</span> Kodama <span lang="zh">站点文件夹内执行</span></p>
+<pre><code class="language-sh">kodama snip --section
+</code></pre>
+<p><span lang="zh">除此之外</span>, <code>kodama snip</code> <span lang="zh">也可以用于生成</span> $\KaTeX$ <span lang="zh">宏补全文件和</span> <code>inline-section</code> <span lang="zh">可用代码片段</span>.</p>
+<pre><code class="language-sh">$ kodama snip --help
+
+Generate VSCode style snippets file
+
+Usage: kodama snip [OPTIONS]
+
+Options:
+  -c, --config &lt;CONFIG&gt;  Path to the configuration file (e.g., "Kodama.toml") [default: ./Kodama.toml]
+      --katex            Generate `.vscode/katex.code-snippets`
+      --section          Generate `.vscode/section.code-snippets`
+      --inline-section   Generate `.vscode/inline-section.code-snippets`
+  -h, --help             Print help
+</code></pre>
+<div class="footnote-definition" id="tutorials_new-site_editor">
+  <sup class="footnote-definition-label"><a href="#tutorials_new-site_editor-back">1</a></sup>
+<p><span lang="zh"></span><span class="link external"><a href="https://code.visualstudio.com/docs/editing/userdefinedsnippets" title="Snippets 补全功能 [https://code.visualstudio.com/docs/editing/userdefinedsnippets]">Snippets 补全功能</a></span> <span lang="zh">在非</span> <span class="link external"><a href="https://code.visualstudio.com/" title="VSCode [https://code.visualstudio.com/]">VSCode</a></span> <span lang="zh">的编辑器上是否可用需要自行探索</span>.</p>
+</div>
+</details></section><footer><section class="block link-list" id="references"><details open><summary><header><h1>References</h1></header></summary><section class="block" data-taxon=""><details ><summary id="references-config"><header><h1><span class="taxon"></span><span lang="zh">配置文件</span> <a class="slug" href="https://kodama-community.github.io/docs/references/config.html">[config]</a><a class="edit" href="https://github.com/kodama-community/docs/edit/main/trees/references/config.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><span lang="zh">配置文件</span> <code>Kodama.toml</code> <span lang="zh">可通过</span> <code>kodama new config</code> <span lang="zh">创建</span>, <span lang="zh">或在</span> <code>kodama new site</code> / <code>kodama init</code> <span lang="zh">时自动生成</span>.
+<span lang="zh">下面是版本</span> <span class="link local"><a href="https://kodama-community.github.io/docs/latest.html" title="1.0.0 release - forest [latest]">1.0.0 release - forest</a></span> <span lang="zh">的完整配置结构</span>.</p>
+<pre><code class="language-toml">[kodama]
+trees = "trees"
+assets = "assets"
+base-url = "/"
+themes = []
+
+[toc]
+placement = "right"
+sticky = true
+mobile-sticky = true
+max-width = "45ex"
+
+[text]
+edit = "[edit]"
+toc = "Table of Contents"
+references = "References"
+backlinks = "Backlinks"
+
+[build]
+typst-root = "trees"
+short-slug = false
+pretty-urls = false
+footer-mode = "link"
+inline-css = true
+asref = false
+output = "./publish"
+# edit = "https://example.com/repo/edit/main/trees/"
+
+[serve]
+edit = "vscode://file/"
+output = "./.cache/publish"
+command = ["miniserve", "&lt;output&gt;", "--index", "index.html", "--pretty-urls"]
+</code></pre>
+<ul>
+<li>
+<p><code>[kodama]</code></p>
+<ul>
+<li><code>trees</code>: <span lang="zh">文档源目录</span> (<span lang="zh">存放</span> <code>index.md</code> <span lang="zh">和其他节文件</span>).</li>
+<li><code>assets</code>: <span lang="zh">静态资源目录</span>, <span lang="zh">每次构建会同步到输出目录下对应子目录</span>.</li>
+<li><code>base-url</code>: <span lang="zh">部署根</span> URL, <span lang="zh">仅</span> <code>build</code> <span lang="zh">模式生效</span>; <code>serve</code> <span lang="zh">模式固定使用</span> <code>/</code>.</li>
+<li><code>themes</code>: <span lang="zh">主题文件路径数组</span> (<span lang="zh">相对工作区根目录</span>).</li>
+</ul>
+</li>
+<li>
+<p><code>[toc]</code></p>
+<ul>
+<li><code>placement</code>: <span lang="zh">目录位置</span>, <code>left</code> <span lang="zh">或</span> <code>right</code>.</li>
+<li><code>sticky</code>: <span lang="zh">桌面端目录是否粘性定位</span>.</li>
+<li><code>mobile-sticky</code>: <span lang="zh">移动端目录是否粘性定位</span>.</li>
+<li><code>max-width</code>: <span lang="zh">目录区域最大宽度</span>.</li>
+</ul>
+</li>
+<li>
+<p><code>[text]</code></p>
+<ul>
+<li><code>edit</code>: <span lang="zh">页面编辑按钮文本</span>.</li>
+<li><code>toc</code>: <span lang="zh">目录标题文本</span>.</li>
+<li><code>references</code>: <span lang="zh">引用区标题文本</span>.</li>
+<li><code>backlinks</code>: <span lang="zh">反链区标题文本</span>.</li>
+</ul>
+</li>
+<li>
+<p><code>[build]</code></p>
+<ul>
+<li><code>typst-root</code>: Typst project root (<span lang="zh">默认</span> <code>trees</code>).</li>
+<li><code>short-slug</code>: <span lang="zh">页面内部展示的</span> slug <span lang="zh">是否只保留末段</span>.</li>
+<li><code>pretty-urls</code>: <span lang="zh">是否启用无</span> <code>.html</code> <span lang="zh">后缀链接</span>.</li>
+<li><code>footer-mode</code>: <span lang="zh">页脚模式</span>, <code>link</code> <span lang="zh">或</span> <code>embed</code>.</li>
+<li><code>inline-css</code>: <span lang="zh">是否内联</span> CSS.</li>
+<li><code>asref</code>: <span lang="zh">全局默认是否按参考页</span> (<code>asref</code>) <span lang="zh">渲染</span>.</li>
+<li><code>output</code>: <code>build</code> <span lang="zh">输出目录</span>.</li>
+<li><code>edit</code>: <span lang="zh">可选</span>, <span lang="zh">部署环境下编辑链接前缀</span>.</li>
+</ul>
+</li>
+<li>
+<p><code>[serve]</code></p>
+<ul>
+<li><code>edit</code>: <span lang="zh">本地编辑器</span> URL <span lang="zh">前缀</span>.</li>
+<li><code>output</code>: <code>serve</code> <span lang="zh">输出目录</span>.</li>
+<li><code>command</code>: <span lang="zh">本地服务启动命令</span>, <code>&lt;output&gt;</code> <span lang="zh">会在运行时替换为输出目录</span>.</li>
+</ul>
+</li>
+</ul>
+</details></section><section class="block" data-taxon=""><details ><summary id="references-section"><header><h1><span class="taxon"></span><span lang="zh">节</span> <a class="slug" href="https://kodama-community.github.io/docs/references/section.html">[section]</a><a class="edit" href="https://github.com/kodama-community/docs/edit/main/trees/references/section.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary>
+<p><span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]">节</a></span> <span lang="zh">是</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/app.html" title="Kodama 程序 [references/app]">Kodama</a></span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/tutorials/writing.html" title="写作 [tutorials/writing]">写作</a></span> <span lang="zh">中的基本概念</span>. <span lang="zh">每个</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]">节</a></span> <span lang="zh">都将被处理为一个</span> <span class="link external"><a href="https://developer.mozilla.org/en-US/docs/Web/HTML" title="HTML [https://developer.mozilla.org/en-US/docs/Web/HTML]">HTML</a></span> <span lang="zh">文件</span>. <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]">节</a></span> <span lang="zh">可以来自</span> <span class="link external"><a href="https://commonmark.org" title="Markdown [https://commonmark.org]">Markdown</a></span> <span lang="zh">文档或</span> <span class="link external"><a href="https://typst.app/docs" title="Typst [https://typst.app/docs]">Typst</a></span> <span lang="zh">文档</span>. <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]">节</a></span> <span lang="zh">之间的</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/link-local.html" title="站内引用 [references/link-local]">链接</a></span> <span lang="zh">和</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/local-embed.html" title="嵌入 [references/local-embed]">组合</a></span> <span lang="zh">构成了</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/app.html" title="Kodama 程序 [references/app]">Kodama 写作</a></span> <span lang="zh">的基本模式</span>.</p>
+</details></section><section class="block" data-taxon=""><details ><summary id="tutorials-install"><header><h1><span class="taxon"></span><span lang="zh">安装</span> <a class="slug" href="https://kodama-community.github.io/docs/tutorials/install.html">[install]</a><a class="edit" href="https://github.com/kodama-community/docs/edit/main/trees/tutorials/install.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary>
+<p><span lang="zh">目前</span>, <span lang="zh">用户可以根据目标设备的架构直接从</span> <span class="link external"><a href="https://github.com/kokic/kodama/releases" title="GitHub Release [https://github.com/kokic/kodama/releases]">GitHub Release</a></span> <span lang="zh">页面下载二进制文件</span>. <span lang="zh">当</span> <span class="link external"><a href="https://github.com/kokic/kodama/releases" title="GitHub Release [https://github.com/kokic/kodama/releases]">GitHub Release</a></span> <span lang="zh">页面缺少适合你设备的文件时</span>, <span lang="zh">你可以从</span> <span lang="zh"></span><span class="link external"><a href="https://github.com/kokic/kodama" title="源代码 [https://github.com/kokic/kodama]">源代码</a></span> <span lang="zh">开始自己构建</span>, <span lang="zh">如</span></p>
+<pre><code class="language-sh">cargo install --git https://github.com/kokic/kodama.git
+</code></pre>
+<p><span lang="zh">如果希望在</span> Termux <span lang="zh">等</span> Android <span lang="zh">环境中使用</span>, <span lang="zh">请下载</span> <code>aarch64-unknown-linux-musl</code>, <span lang="zh">或</span> <span lang="zh"></span><span class="link external"><a href="https://git-scm.com/docs/git-clone" title="克隆 [https://git-scm.com/docs/git-clone]">克隆</a></span> <span lang="zh"></span><span class="link external"><a href="https://github.com/kokic/kodama" title="源代码 [https://github.com/kokic/kodama]">源代码</a></span> <span lang="zh">至本地后在其目录下执行</span></p>
+<pre><code class="language-sh">cargo build --release --target=aarch64-unknown-linux-musl
+</code></pre>
+<p><span lang="zh">我们建议用户使用最新版本</span>, <span lang="zh">即便该版本被标记为</span> <code>pre-release</code>. <span lang="zh">由于并非所有</span> <span class="link external"><a href="https://github.com/kokic/kodama/releases" title="GitHub Release [https://github.com/kokic/kodama/releases]">GitHub Release</a></span> <span lang="zh">都能第一时间发现潜在的问题</span>, <span lang="zh">如果用户愿意安装</span> <span lang="zh"></span><span class="link external"><a href="https://rust-lang.org/" title="Rust 工具链 [https://rust-lang.org/]">Rust 工具链</a></span>, <span lang="zh">则自行构建是最推荐的安装方式</span>. <span lang="zh">在</span> <code>1.0</code> <span lang="zh">版本发布前</span>, <span lang="zh">每次发布都可能包含破坏性变更</span>, <span lang="zh">不过我们会努力使迁移成本尽可能降低</span>.</p>
+</details></section><section class="block" data-taxon=""><details ><summary id="tutorials-writing"><header><h1><span class="taxon"></span><span lang="zh">写作</span> <a class="slug" href="https://kodama-community.github.io/docs/tutorials/writing.html">[writing]</a><a class="edit" href="https://github.com/kodama-community/docs/edit/main/trees/tutorials/writing.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary>
+<p><span lang="zh">在使用</span> <span class="link external"><a href="https://typst.app/docs" title="Typst [https://typst.app/docs]">Typst</a></span> <span lang="zh">文档写作时</span>, <span lang="zh">请务必导入</span> <code>_lib/kodama.typ</code> <span lang="zh">并</span> <code>#show: kodama</code>. <span lang="zh">这段代码将保证</span> <span class="link external"><a href="https://typst.app/docs" title="Typst [https://typst.app/docs]">Typst</a></span> <span lang="zh">文档转换为网页后</span>, <span lang="zh">其公式内容能够正确显示</span>. <span lang="zh">除此之外</span>, <span lang="zh">这段代码也会改善</span> <span class="link external"><a href="https://github.com/Myriad-Dreamin/tinymist" title="Tinymist [https://github.com/Myriad-Dreamin/tinymist]">Tinymist</a></span> <span lang="zh">等本地预览工具的使用体验</span>.</p>
+<blockquote class="markdown-alert-important">
+<p><span lang="zh">对于</span> <code>trees</code> <span lang="zh">文件夹内的</span> <span class="link external"><a href="https://typst.app/docs" title="Typst [https://typst.app/docs]">Typst</a></span> <span lang="zh">文件</span>, <span lang="zh">需要遵循以下后缀规范</span>:</p>
+<ul>
+<li><span lang="zh">如果其属于库文件</span>. <span lang="zh">即</span>, <span lang="zh">不直接产生具体文档</span>, <span lang="zh">请使用</span> <code>.typ</code> <span lang="zh">作为文件后缀</span>.</li>
+<li><span lang="zh">而对于包含内容的</span> <span class="link external"><a href="https://typst.app/docs" title="Typst [https://typst.app/docs]">Typst</a></span> <span lang="zh">文档</span>, <span lang="zh">请统一使用</span> <code>.typst</code> <span lang="zh">后缀</span>.</li>
+</ul>
+</blockquote>
+</details></section></details></section></footer></article></div></body></html>

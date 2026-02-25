@@ -17,12 +17,12 @@ references = "References"
 backlinks = "Backlinks"
 
 [build]
-typst-root = "./"
+typst-root = "trees"
 short-slug = true
 pretty-urls = false
 footer-mode = "embed"
 inline-css = false
-asref = false
+asref = true
 output = "./publish"
 edit = "https://github.com/kodama-community/docs/edit/main/trees/"
 

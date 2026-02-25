@@ -1,55 +1,75 @@
-
 ---
 title: 配置文件
 asref: true
-index: [](./index.md)
 ---
 
-配置文件 `Kodama.toml` 目前可通过 `kodama new c` 单独创建, 或者在新建 [Kodama][app] 站点时自动生成. 配置文件通常包含以下内容:  
+配置文件 `Kodama.toml` 可通过 `kodama new config` 创建, 或在 `kodama new site` / `kodama init` 时自动生成.
+下面是版本 [](/trees/latest.md) 的完整配置结构.
 
 ```toml
 [kodama]
-trees = "trees" 
+trees = "trees"
 assets = "assets"
 base-url = "/"
+themes = []
+
+[toc]
+placement = "right"
+sticky = true
+mobile-sticky = true
+max-width = "45ex"
+
+[text]
+edit = "[edit]"
+toc = "Table of Contents"
+references = "References"
+backlinks = "Backlinks"
 
 [build]
-typst-root = "./"
+typst-root = "trees"
 short-slug = false
 pretty-urls = false
 footer-mode = "link"
-inline-css = false
+inline-css = true
+asref = false
 output = "./publish"
+# edit = "https://example.com/repo/edit/main/trees/"
 
 [serve]
 edit = "vscode://file/"
 output = "./.cache/publish"
-command = ["miniserve", "<output>", "--index", "index.html", "--pretty-urls", "--port", "8082"]
+command = ["miniserve", "<output>", "--index", "index.html", "--pretty-urls"]
 ```
 
-### `[kodama]`
+- `[kodama]`
+  - `trees`: 文档源目录 (存放 `index.md` 和其他节文件).
+  - `assets`: 静态资源目录, 每次构建会同步到输出目录下对应子目录.
+  - `base-url`: 部署根 URL, 仅 `build` 模式生效; `serve` 模式固定使用 `/`.
+  - `themes`: 主题文件路径数组 (相对工作区根目录).
 
-- `trees` 用于指定文档目录, 即 `index.md` 等文件所在的文件夹.
-- `assets` 用于指定资源目录, 如图片、字体等文件. `assets` 会在每次构建时自动同步到 `publish/<assets>`.
-- `base-url` 用于指定部署到的域名根路径. 
+- `[toc]`
+  - `placement`: 目录位置, `left` 或 `right`.
+  - `sticky`: 桌面端目录是否粘性定位.
+  - `mobile-sticky`: 移动端目录是否粘性定位.
+  - `max-width`: 目录区域最大宽度.
 
-### `[build]`
+- `[text]`
+  - `edit`: 页面编辑按钮文本.
+  - `toc`: 目录标题文本.
+  - `references`: 引用区标题文本.
+  - `backlinks`: 反链区标题文本.
 
-- `typst-root` 用于指定 Typst 构建时的根路径, 见 [project root](https://typst.app/docs/reference/syntax/#project-root).
-- `short-slug` 开启后网页中每个 [节][section] 的 `slug` 只展示最后一部分.
-- `pretty-urls` 开启后网页中每个内部链接将去除 `.html` 后缀.
-- `footer-mode` 用于指定 [节][section] 的页脚部分是否嵌入关联或被关联 [节][section] 的正文. 值只能是 `link` 或 `embed`. 
-- `inline-css` 开启后将内联 `main.css` 等 [CSS][css] 文件. 
-- `output` 用于指定 `build` 模式下的网站输出路径.
+- `[build]`
+  - `typst-root`: Typst project root (默认 `trees`).
+  - `short-slug`: 页面内部展示的 slug 是否只保留末段.
+  - `pretty-urls`: 是否启用无 `.html` 后缀链接.
+  - `footer-mode`: 页脚模式, `link` 或 `embed`.
+  - `inline-css`: 是否内联 CSS.
+  - `asref`: 全局默认是否按参考页 (`asref`) 渲染.
+  - `output`: `build` 输出目录.
+  - `edit`: 可选, 部署环境下编辑链接前缀.
 
-
-### `[serve]`
-
-- `edit` 用于指定 `serve` 模式下用于跳转到编辑器的 url 前缀. 
-- `output` 用于指定 `serve` 模式下的网站输出路径.
-- `command` 用于指定 `serve` 时开启本地服务器的指令. 
-
-[app]: /references/app.md
-[section]: /references/section.md
-
-[css]: https://developer.mozilla.org/en-US/docs/Web/CSS
+- `[serve]`
+  - `edit`: 本地编辑器 URL 前缀.
+  - `output`: `serve` 输出目录.
+  - `command`: 本地服务启动命令, `<output>` 会在运行时替换为输出目录.

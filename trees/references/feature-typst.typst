@@ -1,0 +1,36 @@
+
+#import "../_lib/kodama.typ": *
+
+#show: kodama
+
+#set text(font: ("FandolHei"))
+
+#meta("title", "零成本使用 Typst 写作")
+
+#let tinymist = external("https://github.com/Myriad-Dreamin/tinymist")[Tinymist]
+#let feature-typst = local("./feature-typst.typst", "本节")
+
+#let bf(x) = $bold(upright(#x))$
+
+#show math.equation: set text(font: ("New Computer Modern Math", "FandolHei"))
+
+- 用户可以自由的组合 Markdown 和 Typst 所构建出的 #local("/references/section", "节"). 
+  例如, #feature-typst 就来自 Typst 文档.
+  而节 #local("./app.md", "Kodama") 则完全是 Markdown 文档. 
+
+- 针对 Typst 公式渲染的布局优化. 能自动正确对齐与文本不等高的内联公式. 
+  - 权 $k in ZZ_(>= 1)$ 级 $Gamma$ 的模形式具有对称性 $f((a tau + b)/(c tau + d)) = (c tau + d)^k f(tau)$, 其中 $mat(a, b;c, d) in Gamma$, 并且 $f$ 要求在 $Gamma$ 的所有尖点处全纯.
+
+  - 射影平面 $bf(P)^2 = underbracket("平面", "仿射部分") union.sq underbracket({(x:y:0), x, y in K, "不全为零"}, "无穷远点") $
+
+- #tinymist 等工具的完全可用性. 即使目标为 HTML 文件, 原始 Typst 文档也能正常使用 #tinymist 的预览功能. 
+
+#let details-code(title, close: "close", taxon: "Source", c) = {
+  context if compatibled-target() != "paged" {
+    html.elem("block", attrs: (title: title, close: close, taxon: taxon), c)
+  } else {
+    c
+  }
+}
+
+#feature-typst 源文件可于 #external("https://github.com/kodama-community/docs/edit/main/trees/references/feature-typst.typst", "Github - feature-typst.typst") 处查看.
