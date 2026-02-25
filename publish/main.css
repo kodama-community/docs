@@ -9,6 +9,7 @@ html {
   --article-max-width: 90ex;
   --toc-max-width: 90ex;
   --text-font-family: "Inria Sans", sans-serif;
+  --kaiti-font-family: "KaiTi", "SimKai", "STKaiti", "Kaiti SC", "Kaiti TC", "华文楷体", "楷体", serif;
 
   /* root font size: 16px */
   /* 11pt; */
@@ -237,6 +238,20 @@ section+p:empty {
 
 blockquote {
   font-style: italic;
+}
+
+blockquote span[lang=zh],
+blockquote span[lang=ja],
+blockquote span[lang=ko] {
+  font-style: normal;
+  font-family: var(--kaiti-font-family);
+}
+
+blockquote[class^=markdown-alert-] span[lang=zh],
+blockquote[class^=markdown-alert-] span[lang=ja],
+blockquote[class^=markdown-alert-] span[lang=ko] {
+  font-style: normal;
+  font-family: var(--text-font-family);
 }
 
 /* GFM Blockquote tags: https://github.com/orgs/community/discussions/16925 */

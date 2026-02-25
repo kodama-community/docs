@@ -12,3 +12,4 @@ title: Kodama 程序
 
 [+](./feature-color.md#:embed)
 [+](./feature-typst.typst#:embed)
+[+](./feature-text.md#:embed)
