@@ -87,11 +87,11 @@
     ],
     "description": ""
   },
-  "references/local-embed": {
+  "references/link-embed": {
     "scope": "markdown",
-    "prefix": "嵌入 [references/local-embed]",
+    "prefix": "嵌入 [references/link-embed]",
     "body": [
-      "[嵌入]: /trees/references/local-embed.md"
+      "[嵌入]: /trees/references/link-embed.md"
     ],
     "description": ""
   },

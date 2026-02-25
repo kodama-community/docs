@@ -2,7 +2,7 @@
 title: 嵌入
 ---
 
-[嵌入]: ./local-embed.md
+[嵌入]: ./link-embed.md
 [站内引用]: ./link-local.md
 [Kodama 程序]: /trees/references/app.md
 [配置文件]: /trees/references/config.md

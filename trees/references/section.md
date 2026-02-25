@@ -9,7 +9,7 @@ title: 节
 [写作]: /trees/tutorials/writing.md
 [节]: /trees/references/section.md
 [站内引用]: /trees/references/link-local.md
-[嵌入]: /trees/references/local-embed.md
+[嵌入]: /trees/references/link-embed.md
 
 [Markdown]: https://commonmark.org
 [Typst]: https://typst.app/docs
