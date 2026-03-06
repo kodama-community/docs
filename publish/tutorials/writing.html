@@ -1,69 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width"><title>写作</title><link rel="icon" href="https://kodama-community.github.io/docs/assets/favicon.ico" /><template id="inline-section">
-  <section class="inline block" data-taxon="">
-    <details open="">
-      <summary>
-        <header>
-          <h1>
-            <span class="taxon"></span>
-            <div id="title"></div>
-          </h1>
-        </header>
-      </summary>
-      <div id="content"></div>
-    </details>
-  </section>
-</template>
-
-<script>
-  function inlineSection(template, section, taxon, title) {
-    taxon = taxon || section.getAttribute("taxon") || null;
-    title = title || section.getAttribute("title") || "";
-
-    const clone = template.content.cloneNode(true);
-    clone.querySelector("section").dataset.taxon = taxon;
-    clone.querySelector(".taxon").textContent = taxon ? `${taxon}. ` : "";
-    clone.querySelector("#title").replaceWith(title);
-    clone.querySelector("#content").replaceWith(...section.childNodes);
-
-    if (section.hasAttribute("close")) {
-      clone.querySelector("details").removeAttribute("open");
-    }
-    
-    section.replaceWith(clone);
-  }
-
-  const tagTaxonTable = {
-    "exegesis": "Exegesis",
-    "definition": "Definition",
-    "proposition": "Proposition",
-    "remark": "Remark",
-    "conjecture": "Conjecture",
-    "postulate": "Postulate",
-    "claim": "Claim",
-    "observation": "Observation",
-    "fact": "Fact",
-    "hypothesis": "Hypothesis",
-    "axiom": "Axiom",
-    "lemma": "Lemma",
-    "theorem": "Theorem",
-    "corollary": "Corollary",
-    "example": "Example", 
-    "proof": "Proof",
-  };
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const template = document.getElementById("inline-section");
-
-    [...document.getElementsByTagName("block")].forEach(section => inlineSection(template, section));
-
-    Object.entries(tagTaxonTable).forEach(([tag, taxon]) => {
-      [...document.getElementsByTagName(tag)].forEach(section => inlineSection(template, section, taxon));
-    });
-  });
-</script><script>
+<meta name="viewport" content="width=device-width"><title>写作</title><link rel="icon" href="https://kodama-community.github.io/docs/assets/favicon.ico" /><script>
   function toggleDetailsOpen() {
     const details = document.querySelector("#toc>div>details");
     if (!details) return;
@@ -556,21 +494,25 @@
 <blockquote class="markdown-alert-important">
 <p><span lang="zh">对于</span> <code>trees</code> <span lang="zh">文件夹内的</span> <span class="link external"><a href="https://typst.app/docs" title="Typst [https://typst.app/docs]">Typst</a></span> <span lang="zh">文件</span>, <span lang="zh">需要遵循以下后缀规范</span>:</p>
 <ul>
-<li><span lang="zh">如果其属于库文件</span>. <span lang="zh">即</span>, <span lang="zh">不直接产生具体文档</span>, <span lang="zh">请使用</span> <code>.typ</code> <span lang="zh">作为文件后缀</span>.</li>
+<li><span lang="zh">如果其属于库文件</span>. <span lang="zh">即</span>, <span lang="zh">不直接产生具体文档</span>, <span lang="zh">请使用</span> <code>.typ</code> <span lang="zh">作为文件后缀</span>, <span lang="zh">且放置于以</span> <code>_</code> <span lang="zh">或</span> <code>.</code> <span lang="zh">作为名称首字符的目录内</span>. <sup class="footnote-reference" id="tutorials_writing_export-svg-back"><a href="#tutorials_writing_export-svg">1</a></sup></li>
 <li><span lang="zh">而对于包含内容的</span> <span class="link external"><a href="https://typst.app/docs" title="Typst [https://typst.app/docs]">Typst</a></span> <span lang="zh">文档</span>, <span lang="zh">请统一使用</span> <code>.typst</code> <span lang="zh">后缀</span>.</li>
 </ul>
+<div class="footnote-definition" id="tutorials_writing_export-svg">
+  <sup class="footnote-definition-label"><a href="#tutorials_writing_export-svg-back">1</a></sup>
+<p><span lang="zh">因为通常的</span> <code>.typ</code> <span lang="zh">文件将编译为独立</span> SVG <span lang="zh">图像</span>, <span lang="zh">此功能用于在</span> <span class="link external"><a href="https://commonmark.org" title="Markdown [https://commonmark.org]">Markdown</a></span> <span lang="zh">文档内以图像形式嵌入</span> <span class="link external"><a href="https://typst.app/docs" title="Typst [https://typst.app/docs]">Typst</a></span> <span lang="zh">编译产物</span>.</p>
+</div>
 </blockquote>
 </details></section><footer><section class="block link-list" id="backlinks"><details open><summary><header><h1>Backlinks</h1></header></summary><section class="block" data-taxon=""><details ><summary id="references-section"><header><h1><span class="taxon"></span><span lang="zh">节</span> <a class="slug" href="https://kodama-community.github.io/docs/references/section.html">[section]</a><a class="edit" href="https://github.com/kodama-community/docs/edit/main/trees/references/section.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary>
-<p><span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]">节</a></span> <span lang="zh">是</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/app.html" title="Kodama 程序 [references/app]">Kodama</a></span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/tutorials/writing.html" title="写作 [tutorials/writing]">写作</a></span> <span lang="zh">中的基本概念</span>. <span lang="zh">每个</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]">节</a></span> <span lang="zh">都将被处理为一个</span> <span class="link external"><a href="https://developer.mozilla.org/en-US/docs/Web/HTML" title="HTML [https://developer.mozilla.org/en-US/docs/Web/HTML]">HTML</a></span> <span lang="zh">文件</span>. <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]">节</a></span> <span lang="zh">可以来自</span> <span class="link external"><a href="https://commonmark.org" title="Markdown [https://commonmark.org]">Markdown</a></span> <span lang="zh">文档或</span> <span class="link external"><a href="https://typst.app/docs" title="Typst [https://typst.app/docs]">Typst</a></span> <span lang="zh">文档</span>. <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]">节</a></span> <span lang="zh">之间的</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/link-local.html" title="站内引用 [references/link-local]">链接</a></span> <span lang="zh">和</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/link-embed.html" title="嵌入 [references/link-embed]">组合</a></span> <span lang="zh">构成了</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/app.html" title="Kodama 程序 [references/app]">Kodama 写作</a></span> <span lang="zh">的基本模式</span>.</p>
-</details></section><section class="block" data-taxon=""><details ><summary id="tutorials-new-site"><header><h1><span class="taxon"></span><span lang="zh">新建站点</span> <a class="slug" href="https://kodama-community.github.io/docs/tutorials/new-site.html">[new-site]</a><a class="edit" href="https://github.com/kodama-community/docs/edit/main/trees/tutorials/new-site.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><span lang="zh">用户在</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/tutorials/install.html" title="安装 [tutorials/install]">安装</a></span> <span lang="zh">后</span>, <span lang="zh">可以执行</span> <code>kodama -V</code> <span lang="zh">或</span> <code>kodama --version</code> <span lang="zh">检查是否安装成功</span>.</p>
+<p><span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]"><span lang="zh">节</span></a></span> <span lang="zh">是</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/app.html" title="Kodama 程序 [references/app]">Kodama</a></span> <span class="link local"><a href="https://kodama-community.github.io/docs/tutorials/writing.html" title="写作 [tutorials/writing]"><span lang="zh">写作</span></a></span> <span lang="zh">中的基本概念</span>. <span lang="zh">每个</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]"><span lang="zh">节</span></a></span> <span lang="zh">都将被处理为一个</span> <span class="link external"><a href="https://developer.mozilla.org/en-US/docs/Web/HTML" title="HTML [https://developer.mozilla.org/en-US/docs/Web/HTML]">HTML</a></span> <span lang="zh">文件</span>. <span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]"><span lang="zh">节</span></a></span> <span lang="zh">可以来自</span> <span class="link external"><a href="https://commonmark.org" title="Markdown [https://commonmark.org]">Markdown</a></span> <span lang="zh">文档或</span> <span class="link external"><a href="https://typst.app/docs" title="Typst [https://typst.app/docs]">Typst</a></span> <span lang="zh">文档</span>. <span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]"><span lang="zh">节</span></a></span> <span lang="zh">之间的</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/link-local.html" title="站内引用 [references/link-local]"><span lang="zh">链接</span></a></span> <span lang="zh">和</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/link-embed.html" title="嵌入 [references/link-embed]"><span lang="zh">组合</span></a></span> <span lang="zh">构成了</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/app.html" title="Kodama 程序 [references/app]">Kodama <span lang="zh">写作</span></a></span> <span lang="zh">的基本模式</span>.</p>
+</details></section><section class="block" data-taxon=""><details ><summary id="tutorials-new-site"><header><h1><span class="taxon"></span><span lang="zh">新建站点</span> <a class="slug" href="https://kodama-community.github.io/docs/tutorials/new-site.html">[new-site]</a><a class="edit" href="https://github.com/kodama-community/docs/edit/main/trees/tutorials/new-site.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><span lang="zh">用户在</span> <span class="link local"><a href="https://kodama-community.github.io/docs/tutorials/install.html" title="安装 [tutorials/install]"><span lang="zh">安装</span></a></span> <span lang="zh">后</span>, <span lang="zh">可以执行</span> <code>kodama -V</code> <span lang="zh">或</span> <code>kodama --version</code> <span lang="zh">检查是否安装成功</span>.</p>
 <p><span lang="zh">要创建一个新的</span> Kodama <span lang="zh">站点</span>, <span lang="zh">请执行</span>:</p>
 <pre><code class="language-sh">kodama new site &lt;PATH&gt;
 </code></pre>
-<p><span lang="zh">用户可以在该目录的</span> <code>trees/</code> <span lang="zh">下进行</span> <span class="link external"><a href="https://commonmark.org" title="Markdown [https://commonmark.org]">Markdown</a></span> <span lang="zh">或</span> <span class="link external"><a href="https://typst.app/docs" title="Typst [https://typst.app/docs]">Typst</a></span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/tutorials/writing.html" title="写作 [tutorials/writing]">写作</a></span>.</p>
-<p><span lang="zh">首次使用</span> <code>serve</code> <span lang="zh">前</span>, <span lang="zh">建议检查</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/config.html" title="配置文件 [references/config]">配置文件</a></span> <span lang="zh">中</span> <code>[serve]</code> <span lang="zh">的</span> <code>command</code>. <span lang="zh">默认命令依赖</span> <span class="link external"><a href="https://github.com/svenstaro/miniserve" title="miniserve [https://github.com/svenstaro/miniserve]">miniserve</a></span>, <span lang="zh">你可以安装它</span>, <span lang="zh">或改为当前设备可用的本地服务命令</span>. <span lang="zh">例如</span>:</p>
+<p><span lang="zh">用户可以在该目录的</span> <code>trees/</code> <span lang="zh">下进行</span> <span class="link external"><a href="https://commonmark.org" title="Markdown [https://commonmark.org]">Markdown</a></span> <span lang="zh">或</span> <span class="link external"><a href="https://typst.app/docs" title="Typst [https://typst.app/docs]">Typst</a></span> <span class="link local"><a href="https://kodama-community.github.io/docs/tutorials/writing.html" title="写作 [tutorials/writing]"><span lang="zh">写作</span></a></span>.</p>
+<p><span lang="zh">首次使用</span> <code>serve</code> <span lang="zh">前</span>, <span lang="zh">建议检查</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/config.html" title="配置文件 [references/config]"><span lang="zh">配置文件</span></a></span> <span lang="zh">中</span> <code>[serve]</code> <span lang="zh">的</span> <code>command</code>. <span lang="zh">默认命令依赖</span> <span class="link external"><a href="https://github.com/svenstaro/miniserve" title="miniserve [https://github.com/svenstaro/miniserve]">miniserve</a></span>, <span lang="zh">你可以安装它</span>, <span lang="zh">或改为当前设备可用的本地服务命令</span>. <span lang="zh">例如</span>:</p>
 <pre><code class="language-toml">command = ["python", "-m", "http.server", "-d", "&lt;output&gt;"]
 </code></pre>
-<p><span lang="zh">如果用户需要生成</span> <span lang="zh"></span><span lang="zh"></span><span class="link external"><a href="https://code.visualstudio.com/docs/editing/userdefinedsnippets" title="VSCode 风格的 snippets 文件 [https://code.visualstudio.com/docs/editing/userdefinedsnippets]">VSCode 风格的 snippets 文件</a></span>, <span lang="zh">进而借助其</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]"><span lang="zh">节</span></a></span> <span lang="zh">代码补全功能</span> <sup class="footnote-reference" id="tutorials_new-site_editor-back"><a href="#tutorials_new-site_editor">1</a></sup>, <span lang="zh">可在</span> Kodama <span lang="zh">站点文件夹内执行</span></p>
+<p><span lang="zh">如果用户需要生成</span> <span class="link external"><a href="https://code.visualstudio.com/docs/editing/userdefinedsnippets" title="VSCode 风格的 snippets 文件 [https://code.visualstudio.com/docs/editing/userdefinedsnippets]">VSCode <span lang="zh">风格的</span> snippets <span lang="zh">文件</span></a></span>, <span lang="zh">进而借助其</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]"><span lang="zh">节</span></a></span> <span lang="zh">代码补全功能</span> <sup class="footnote-reference" id="tutorials_new-site_editor-back"><a href="#tutorials_new-site_editor">1</a></sup>, <span lang="zh">可在</span> Kodama <span lang="zh">站点文件夹内执行</span></p>
 <pre><code class="language-sh">kodama snip --section
 </code></pre>
 <p><span lang="zh">除此之外</span>, <code>kodama snip</code> <span lang="zh">也可以用于生成</span> $\KaTeX$ <span lang="zh">宏补全文件和</span> <code>inline-section</code> <span lang="zh">可用代码片段</span>.</p>
@@ -589,6 +531,6 @@ Options:
 </code></pre>
 <div class="footnote-definition" id="tutorials_new-site_editor">
   <sup class="footnote-definition-label"><a href="#tutorials_new-site_editor-back">1</a></sup>
-<p><span lang="zh"></span><span class="link external"><a href="https://code.visualstudio.com/docs/editing/userdefinedsnippets" title="Snippets 补全功能 [https://code.visualstudio.com/docs/editing/userdefinedsnippets]">Snippets 补全功能</a></span> <span lang="zh">在非</span> <span class="link external"><a href="https://code.visualstudio.com/" title="VSCode [https://code.visualstudio.com/]">VSCode</a></span> <span lang="zh">的编辑器上是否可用需要自行探索</span>.</p>
+<p><span class="link external"><a href="https://code.visualstudio.com/docs/editing/userdefinedsnippets" title="Snippets 补全功能 [https://code.visualstudio.com/docs/editing/userdefinedsnippets]">Snippets <span lang="zh">补全功能</span></a></span> <span lang="zh">在非</span> <span class="link external"><a href="https://code.visualstudio.com/" title="VSCode [https://code.visualstudio.com/]">VSCode</a></span> <span lang="zh">的编辑器上是否可用需要自行探索</span>.</p>
 </div>
 </details></section></details></section></footer></article></div></body></html>

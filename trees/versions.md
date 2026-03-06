@@ -8,9 +8,9 @@ title: 版本信息
 | `1.0.0 release` | - | forest |
 | `0.9.9 release` | - | Brave Love ～Galaxy Express 999 |
 | `0.8.0` | - | Ga1ahad and Scientific Witchery |
-| `0.7.9 release` | - | 霞光 |
-| `0.7.5 release` | - | Stamina Rose |
-| `0.7.0 release` | - | D City Rock |
+| `0.7.9 release` | `Mar 07, 2026` | 霞光 |
+| `0.7.5 release` | `Feb 27, 2026` | Stamina Rose |
+| `0.7.0 release` | `Feb 26, 2026` | D City Rock |
 | `0.5.0 release` | `Feb 24, 2026` | GET9 |
 | `0.4.2 release` | `Jan 30, 2026` | CASANOVA POSSE |
 | `0.4.1 release` | `Jan 03, 2026` | flamma |

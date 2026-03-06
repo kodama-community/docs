@@ -1,69 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width"><title>Highlight.js</title><link rel="icon" href="https://kodama-community.github.io/docs/assets/favicon.ico" /><template id="inline-section">
-  <section class="inline block" data-taxon="">
-    <details open="">
-      <summary>
-        <header>
-          <h1>
-            <span class="taxon"></span>
-            <div id="title"></div>
-          </h1>
-        </header>
-      </summary>
-      <div id="content"></div>
-    </details>
-  </section>
-</template>
-
-<script>
-  function inlineSection(template, section, taxon, title) {
-    taxon = taxon || section.getAttribute("taxon") || null;
-    title = title || section.getAttribute("title") || "";
-
-    const clone = template.content.cloneNode(true);
-    clone.querySelector("section").dataset.taxon = taxon;
-    clone.querySelector(".taxon").textContent = taxon ? `${taxon}. ` : "";
-    clone.querySelector("#title").replaceWith(title);
-    clone.querySelector("#content").replaceWith(...section.childNodes);
-
-    if (section.hasAttribute("close")) {
-      clone.querySelector("details").removeAttribute("open");
-    }
-    
-    section.replaceWith(clone);
-  }
-
-  const tagTaxonTable = {
-    "exegesis": "Exegesis",
-    "definition": "Definition",
-    "proposition": "Proposition",
-    "remark": "Remark",
-    "conjecture": "Conjecture",
-    "postulate": "Postulate",
-    "claim": "Claim",
-    "observation": "Observation",
-    "fact": "Fact",
-    "hypothesis": "Hypothesis",
-    "axiom": "Axiom",
-    "lemma": "Lemma",
-    "theorem": "Theorem",
-    "corollary": "Corollary",
-    "example": "Example", 
-    "proof": "Proof",
-  };
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const template = document.getElementById("inline-section");
-
-    [...document.getElementsByTagName("block")].forEach(section => inlineSection(template, section));
-
-    Object.entries(tagTaxonTable).forEach(([tag, taxon]) => {
-      [...document.getElementsByTagName(tag)].forEach(section => inlineSection(template, section, taxon));
-    });
-  });
-</script><script>
+<meta name="viewport" content="width=device-width"><title>Highlight.js</title><link rel="icon" href="https://kodama-community.github.io/docs/assets/favicon.ico" /><script>
   function toggleDetailsOpen() {
     const details = document.querySelector("#toc>div>details");
     if (!details) return;
@@ -581,6 +519,6 @@
   }
 &lt;/style&gt;</code></pre></p>
 </details></section><footer><section class="block link-list" id="backlinks"><details open><summary><header><h1>Backlinks</h1></header></summary><section class="block" data-taxon=""><details ><summary id="examples-index"><header><h1><span class="taxon"></span><span lang="zh">示例</span> <a class="slug" href="https://kodama-community.github.io/docs/examples/index.html">[examples]</a><a class="edit" href="https://github.com/kodama-community/docs/edit/main/trees/examples/index.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><ul>
-<li><span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/examples/highlight.js.html" title="Highlight.js [examples/highlight.js]">Highlight.js 配置示例</a></span></li>
+<li><span class="link local"><a href="https://kodama-community.github.io/docs/examples/highlight.js.html" title="Highlight.js [examples/highlight.js]">Highlight.js <span lang="zh">配置示例</span></a></span></li>
 </ul>
 </details></section></details></section></footer></article></div></body></html>

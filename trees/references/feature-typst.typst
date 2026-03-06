@@ -5,18 +5,20 @@
 
 #set text(font: ("FandolHei"))
 
-#meta("title", "零成本使用 Typst 写作")
+#metadata((
+  "title": "零成本使用 Typst 写作"
+))
 
 #let tinymist = external("https://github.com/Myriad-Dreamin/tinymist")[Tinymist]
-#let feature-typst = local("./feature-typst.typst", "本节")
+#let feature-typst = local("./feature-typst.typst", text: "本节")
 
 #let bf(x) = $bold(upright(#x))$
 
 #show math.equation: set text(font: ("New Computer Modern Math", "FandolHei"))
 
-- 用户可以自由的组合 Markdown 和 Typst 所构建出的 #local("/references/section", "节"). 
+- 用户可以自由的组合 Markdown 和 Typst 所构建出的 #local("/references/section", text: "节"). 
   例如, #feature-typst 就来自 Typst 文档.
-  而节 #local("./app.md", "Kodama") 则完全是 Markdown 文档. 
+  而节 #local("./app.md", text: "Kodama") 则完全是 Markdown 文档. 
 
 - 针对 Typst 公式渲染的布局优化. 能自动正确对齐与文本不等高的内联公式. 
   - 权 $k in ZZ_(>= 1)$ 级 $Gamma$ 的模形式具有对称性 $f((a tau + b)/(c tau + d)) = (c tau + d)^k f(tau)$, 其中 $mat(a, b;c, d) in Gamma$, 并且 $f$ 要求在 $Gamma$ 的所有尖点处全纯.

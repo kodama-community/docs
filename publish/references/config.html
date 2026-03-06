@@ -1,69 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width"><title>配置文件</title><link rel="icon" href="https://kodama-community.github.io/docs/assets/favicon.ico" /><template id="inline-section">
-  <section class="inline block" data-taxon="">
-    <details open="">
-      <summary>
-        <header>
-          <h1>
-            <span class="taxon"></span>
-            <div id="title"></div>
-          </h1>
-        </header>
-      </summary>
-      <div id="content"></div>
-    </details>
-  </section>
-</template>
-
-<script>
-  function inlineSection(template, section, taxon, title) {
-    taxon = taxon || section.getAttribute("taxon") || null;
-    title = title || section.getAttribute("title") || "";
-
-    const clone = template.content.cloneNode(true);
-    clone.querySelector("section").dataset.taxon = taxon;
-    clone.querySelector(".taxon").textContent = taxon ? `${taxon}. ` : "";
-    clone.querySelector("#title").replaceWith(title);
-    clone.querySelector("#content").replaceWith(...section.childNodes);
-
-    if (section.hasAttribute("close")) {
-      clone.querySelector("details").removeAttribute("open");
-    }
-    
-    section.replaceWith(clone);
-  }
-
-  const tagTaxonTable = {
-    "exegesis": "Exegesis",
-    "definition": "Definition",
-    "proposition": "Proposition",
-    "remark": "Remark",
-    "conjecture": "Conjecture",
-    "postulate": "Postulate",
-    "claim": "Claim",
-    "observation": "Observation",
-    "fact": "Fact",
-    "hypothesis": "Hypothesis",
-    "axiom": "Axiom",
-    "lemma": "Lemma",
-    "theorem": "Theorem",
-    "corollary": "Corollary",
-    "example": "Example", 
-    "proof": "Proof",
-  };
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const template = document.getElementById("inline-section");
-
-    [...document.getElementsByTagName("block")].forEach(section => inlineSection(template, section));
-
-    Object.entries(tagTaxonTable).forEach(([tag, taxon]) => {
-      [...document.getElementsByTagName(tag)].forEach(section => inlineSection(template, section, taxon));
-    });
-  });
-</script><script>
+<meta name="viewport" content="width=device-width"><title>配置文件</title><link rel="icon" href="https://kodama-community.github.io/docs/assets/favicon.ico" /><script>
   function toggleDetailsOpen() {
     const details = document.querySelector("#toc>div>details");
     if (!details) return;
@@ -638,33 +576,33 @@ command = ["miniserve", "&lt;output&gt;", "--index", "index.html", "--pretty-url
 </ul>
 </details></section><footer><section class="block link-list" id="references"><details open><summary><header><h1>References</h1></header></summary><section class="block" data-taxon=""><details ><summary id="latest"><header><h1><span class="taxon"></span>1.0.0 release - forest <a class="slug" href="https://kodama-community.github.io/docs/latest.html">[latest]</a><a class="edit" href="https://github.com/kodama-community/docs/edit/main/trees/latest.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary>
 </details></section></details></section><section class="block link-list" id="backlinks"><details open><summary><header><h1>Backlinks</h1></header></summary><section class="block" data-taxon=""><details ><summary id="references-link-local"><header><h1><span class="taxon"></span><span lang="zh">站内引用</span> <a class="slug" href="https://kodama-community.github.io/docs/references/link-local.html">[link-local]</a><a class="edit" href="https://github.com/kodama-community/docs/edit/main/trees/references/link-local.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary>
-<p><span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/link-local.html" title="站内引用 [references/link-local]">站内引用</a></span> <span lang="zh">或称内部链接</span>, <span lang="zh">是一种特殊的</span> <span class="link external"><a href="https://commonmark.org" title="Markdown [https://commonmark.org]">Markdown</a></span> <span lang="zh">链接</span>, <span lang="zh">也是构造双链文档的基本手段</span>. <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/app.html" title="Kodama 程序 [references/app]">Kodama 程序</a></span> <span lang="zh">会在编译阶段解析</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/link-local.html" title="站内引用 [references/link-local]">站内引用</a></span> <span lang="zh">所指向文档的标题和</span> <code>slug</code> <sup class="footnote-reference" id="references_link-local_slug-back"><a href="#references_link-local_slug">1</a></sup> <span lang="zh">信息</span>.</p>
+<p><span class="link local"><a href="https://kodama-community.github.io/docs/references/link-local.html" title="站内引用 [references/link-local]"><span lang="zh">站内引用</span></a></span> <span lang="zh">或称内部链接</span>, <span lang="zh">是一种特殊的</span> <span class="link external"><a href="https://commonmark.org" title="Markdown [https://commonmark.org]">Markdown</a></span> <span lang="zh">链接</span>, <span lang="zh">也是构造双链文档的基本手段</span>. <span class="link local"><a href="https://kodama-community.github.io/docs/references/app.html" title="Kodama 程序 [references/app]">Kodama <span lang="zh">程序</span></a></span> <span lang="zh">会在编译阶段解析</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/link-local.html" title="站内引用 [references/link-local]"><span lang="zh">站内引用</span></a></span> <span lang="zh">所指向文档的标题和</span> <code>slug</code> <sup class="footnote-reference" id="references_link-local_slug-back"><a href="#references_link-local_slug">1</a></sup> <span lang="zh">信息</span>.</p>
 <ul>
 <li>
-<p><span lang="zh">当</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/link-local.html" title="站内引用 [references/link-local]">站内引用</a></span> <span lang="zh">的文字部分为空时</span>, <span lang="zh">即</span> <code>[](./doc.md)</code> <span lang="zh">这种情况</span>, <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/app.html" title="Kodama 程序 [references/app]">Kodama 程序</a></span> <span lang="zh">会使用所指向文档的标题作为此链接的文字部分</span>.</p>
+<p><span lang="zh">当</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/link-local.html" title="站内引用 [references/link-local]"><span lang="zh">站内引用</span></a></span> <span lang="zh">的文字部分为空时</span>, <span lang="zh">即</span> <code>[](./doc.md)</code> <span lang="zh">这种情况</span>, <span class="link local"><a href="https://kodama-community.github.io/docs/references/app.html" title="Kodama 程序 [references/app]">Kodama <span lang="zh">程序</span></a></span> <span lang="zh">会使用所指向文档的标题作为此链接的文字部分</span>.</p>
 </li>
 <li>
-<p><span lang="zh">当</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/link-local.html" title="站内引用 [references/link-local]">站内引用</a></span> <span lang="zh">的文字部分不为空时</span>, <span lang="zh">链接的显示文本即为此文字部分</span>. <span lang="zh">而所指向文档的标题会作为链接元素的</span> <span class="link external"><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/title" title="title [https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/title]">title</a></span> <span lang="zh">属性</span>, <span lang="zh">在指针悬停时可见</span>.</p>
+<p><span lang="zh">当</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/link-local.html" title="站内引用 [references/link-local]"><span lang="zh">站内引用</span></a></span> <span lang="zh">的文字部分不为空时</span>, <span lang="zh">链接的显示文本即为此文字部分</span>. <span lang="zh">而所指向文档的标题会作为链接元素的</span> <span class="link external"><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/title" title="title [https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/title]">title</a></span> <span lang="zh">属性</span>, <span lang="zh">在指针悬停时可见</span>.</p>
 <ul>
 <li><span lang="zh">当所指向文档的标题包含特殊内容</span> (<span lang="zh">如</span> KaTeX <span lang="zh">代码</span>) <span lang="zh">时</span>, <span lang="zh">这些特殊内容往往不适合在悬停处展示</span>. <span lang="zh">此时所指向文档设置的</span> <code>page-title</code> <span lang="zh">会作为实际的悬停展示标题</span>.</li>
 </ul>
 </li>
 <li>
-<p><span lang="zh">考虑一个文档</span> $A$, <span lang="zh">此文档包含一个</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/link-local.html" title="站内引用 [references/link-local]">站内引用</a></span> <span lang="zh">指向文档</span> $B$, <span lang="zh">记为</span> $A \to B$. <span lang="zh">对于通常的网页来说</span>, <span lang="zh">查看文档</span> $A$ <span lang="zh">时访问文档</span> $B$ <span lang="zh">是轻而易举的</span>; <span lang="zh">但查看文档</span> $B$ <span lang="zh">时就难以知道文档</span> $A$ <span lang="zh">的存在</span>. <span lang="zh">为此</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/app.html" title="Kodama 程序 [references/app]">Kodama 程序</a></span> <span lang="zh">会为每个文档页面都生成反向链接并放置于页面底部</span>, <span lang="zh">这就提供了路径</span> $B \to A$.</p>
+<p><span lang="zh">考虑一个文档</span> $A$, <span lang="zh">此文档包含一个</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/link-local.html" title="站内引用 [references/link-local]"><span lang="zh">站内引用</span></a></span> <span lang="zh">指向文档</span> $B$, <span lang="zh">记为</span> $A \to B$. <span lang="zh">对于通常的网页来说</span>, <span lang="zh">查看文档</span> $A$ <span lang="zh">时访问文档</span> $B$ <span lang="zh">是轻而易举的</span>; <span lang="zh">但查看文档</span> $B$ <span lang="zh">时就难以知道文档</span> $A$ <span lang="zh">的存在</span>. <span lang="zh">为此</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/app.html" title="Kodama 程序 [references/app]">Kodama <span lang="zh">程序</span></a></span> <span lang="zh">会为每个文档页面都生成反向链接并放置于页面底部</span>, <span lang="zh">这就提供了路径</span> $B \to A$.</p>
 </li>
 <li>
-<p><span lang="zh">当文档</span> $A$ <span lang="zh">内包含大量</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/link-local.html" title="站内引用 [references/link-local]">站内引用</a></span> <span lang="zh">指向文档</span> $B_1, B_2, B_3, \cdots$ <span lang="zh">时</span>, <span lang="zh">将这些链接信息从文档中的不同位置整理到一个集中区域</span>, <span lang="zh">是完全有必要的</span>. <span lang="zh">为此</span>, <span lang="zh">用户可以在所需文档的元数据部分添加</span> <code>asref: true</code>, <span lang="zh">这将使得此文档被认为是一条参考</span>, <span lang="zh">并收集在页面底部的</span> <code>References</code> <span lang="zh">位置</span>.</p>
+<p><span lang="zh">当文档</span> $A$ <span lang="zh">内包含大量</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/link-local.html" title="站内引用 [references/link-local]"><span lang="zh">站内引用</span></a></span> <span lang="zh">指向文档</span> $B_1, B_2, B_3, \cdots$ <span lang="zh">时</span>, <span lang="zh">将这些链接信息从文档中的不同位置整理到一个集中区域</span>, <span lang="zh">是完全有必要的</span>. <span lang="zh">为此</span>, <span lang="zh">用户可以在所需文档的元数据部分添加</span> <code>asref: true</code>, <span lang="zh">这将使得此文档被认为是一条参考</span>, <span lang="zh">并收集在页面底部的</span> <code>References</code> <span lang="zh">位置</span>.</p>
 <ul>
 <li>
 <p><span lang="zh">如果文档的元数据</span> <code>taxon</code> <span lang="zh">内容以</span> <code>reference</code> <span lang="zh">或者</span> <code>参考</code> <span lang="zh">开头</span>, <span lang="zh">则此文档也会被认为是一条参考</span>.</p>
 </li>
 <li>
-<p><span lang="zh">用户也可以直接在</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/config.html" title="配置文件 [references/config]">配置文件</a></span> <span lang="zh">的</span> <code>[build]</code> <span lang="zh">处将</span> <code>asref = false</code> <span lang="zh">改为</span> <code>asref = true</code>. <span lang="zh">这将使得所有的文档都被认为是参考</span>.</p>
+<p><span lang="zh">用户也可以直接在</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/config.html" title="配置文件 [references/config]"><span lang="zh">配置文件</span></a></span> <span lang="zh">的</span> <code>[build]</code> <span lang="zh">处将</span> <code>asref = false</code> <span lang="zh">改为</span> <code>asref = true</code>. <span lang="zh">这将使得所有的文档都被认为是参考</span>.</p>
 </li>
 </ul>
 </li>
 </ul>
-<p><span lang="zh">使用</span> <span class="link external"><a href="https://commonmark.org" title="Markdown [https://commonmark.org]">Markdown</a></span> <span lang="zh">作为文档格式写作时</span>, <span lang="zh">以下链接会被识别为</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/link-local.html" title="站内引用 [references/link-local]">站内引用</a></span>:</p>
+<p><span lang="zh">使用</span> <span class="link external"><a href="https://commonmark.org" title="Markdown [https://commonmark.org]">Markdown</a></span> <span lang="zh">作为文档格式写作时</span>, <span lang="zh">以下链接会被识别为</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/link-local.html" title="站内引用 [references/link-local]"><span lang="zh">站内引用</span></a></span>:</p>
 <ul>
 <li><code>/trees/path/to/doc.md</code></li>
 <li><code>/trees/path/to/doc.typst</code></li>
@@ -680,7 +618,7 @@ command = ["miniserve", "&lt;output&gt;", "--index", "index.html", "--pretty-url
 </div>
 </details></section><section class="block" data-taxon=""><details ><summary id="tutorials-NCNS"><header><h1><span class="taxon"></span><span lang="zh">编号系统</span> <a class="slug" href="https://kodama-community.github.io/docs/tutorials/NCNS.html">[NCNS]</a><a class="edit" href="https://github.com/kodama-community/docs/edit/main/trees/tutorials/NCNS.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary>
 <p><span lang="zh">这套方法使用固定长度的字符作为文件名</span>, <span lang="zh">每个字符取自</span> <code>0-9</code> <span lang="zh">和</span> <code>A-Z</code>. <span lang="zh">换言之</span>, <span lang="zh">如果长度为</span> $4$ <sup class="footnote-reference" id="tutorials_NCNS_YHWH-back"><a href="#tutorials_NCNS_YHWH">1</a></sup>, <span lang="zh">那么你可以从</span> <code>0000</code> <span lang="zh">一直使用到</span> <code>ZZZZ</code>, <span lang="zh">总共</span> $36^4 = 1679616$ <span lang="zh">也就是大约</span> 168 <span lang="zh">万种可能</span>.</p>
-<p><span lang="zh">在</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/config.html" title="配置文件 [references/config]"><code>--edit</code></a></span> <span lang="zh">功能的帮助下</span>, <span lang="zh">使用完全不涉及内容信息的</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/tutorials/naming.html" title="命名约定 [tutorials/naming]">编号</a></span> <span lang="zh">作为文件名的命名方式在使用体验上已经得到了很大的改善</span>. <span lang="zh">它的优势也比较明显</span>:</p>
+<p><span lang="zh">在</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/config.html" title="配置文件 [references/config]"><code>--edit</code></a></span> <span lang="zh">功能的帮助下</span>, <span lang="zh">使用完全不涉及内容信息的</span> <span class="link local"><a href="https://kodama-community.github.io/docs/tutorials/naming.html" title="命名约定 [tutorials/naming]"><span lang="zh">编号</span></a></span> <span lang="zh">作为文件名的命名方式在使用体验上已经得到了很大的改善</span>. <span lang="zh">它的优势也比较明显</span>:</p>
 <ol>
 <li><span lang="zh">你可以在</span> $\mathcal{O}(1)$ <span lang="zh">时间甚至</span> <code>1ms</code> <span lang="zh">内决定一个新文件应该叫什么</span>.</li>
 <li><span lang="zh">内容无关</span>. <span lang="zh">有时候这是一件好事</span>, <span lang="zh">举例来说</span>, <span lang="zh">当你对文件</span> <code>7A96</code> <span lang="zh">的内容做出任何更改时</span>, <span lang="zh">都无需修改文件名以及引用了</span> <code>7A96</code> <span lang="zh">的文件</span>.</li>
@@ -689,20 +627,20 @@ command = ["miniserve", "&lt;output&gt;", "--index", "index.html", "--pretty-url
 <ol>
 <li><span lang="zh">非语义的命名</span>. <span lang="zh">除了某种可能存在的字典序外</span>, <span lang="zh">我们无法从文件名获得更多信息</span>, <span lang="zh">为了快速从浏览中的页面定位到文件</span>, <span lang="zh">我们还需要像是</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/config.html" title="配置文件 [references/config]"><code>--edit</code></a></span> <span lang="zh">这种依赖编辑器程序的功能</span>.</li>
 </ol>
-<p><span lang="zh">在个人计算机流行前的那些岁月里</span>, <span class="link external"><a href="https://en.wikipedia.org/wiki/Niklas_Luhmann" title="Niklas Luhmann [https://en.wikipedia.org/wiki/Niklas_Luhmann]">Niklas Luhmann</a></span> <span lang="zh">使用了一种基于</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/tutorials/NCNS.html" title="编号系统 [tutorials/NCNS]">编号系统</a></span> <span lang="zh">的权衡方案</span>, <span lang="zh">他为这些编号赋予了特定含义</span>, <span lang="zh">例如第一个字符总是表示主题的编号</span>, <span lang="zh">而第二个字符代表对主题的补充</span>. <span lang="zh">例如</span>, <code>1A</code> <span lang="zh">和</span> <code>1B</code> <span lang="zh">在</span> <code>1</code> <span lang="zh">这个分类下是相关的</span>, <span lang="zh">但在</span> <code>A</code> <span lang="zh">的层面</span>, <span lang="zh">它们又无关</span>.</p>
+<p><span lang="zh">在个人计算机流行前的那些岁月里</span>, <span class="link external"><a href="https://en.wikipedia.org/wiki/Niklas_Luhmann" title="Niklas Luhmann [https://en.wikipedia.org/wiki/Niklas_Luhmann]">Niklas Luhmann</a></span> <span lang="zh">使用了一种基于</span> <span class="link local"><a href="https://kodama-community.github.io/docs/tutorials/NCNS.html" title="编号系统 [tutorials/NCNS]"><span lang="zh">编号系统</span></a></span> <span lang="zh">的权衡方案</span>, <span lang="zh">他为这些编号赋予了特定含义</span>, <span lang="zh">例如第一个字符总是表示主题的编号</span>, <span lang="zh">而第二个字符代表对主题的补充</span>. <span lang="zh">例如</span>, <code>1A</code> <span lang="zh">和</span> <code>1B</code> <span lang="zh">在</span> <code>1</code> <span lang="zh">这个分类下是相关的</span>, <span lang="zh">但在</span> <code>A</code> <span lang="zh">的层面</span>, <span lang="zh">它们又无关</span>.</p>
 <div class="footnote-definition" id="tutorials_NCNS_YHWH">
   <sup class="footnote-definition-label"><a href="#tutorials_NCNS_YHWH-back">1</a></sup>
-<p><span lang="zh">如果你在别处也看到了这种风格</span>, <span lang="zh">不必认为是巧合</span>. <span lang="zh">它们极有可能都无意识地来自</span> <span lang="zh"></span><span class="link external"><a href="https://en.wikipedia.org/wiki/Tetragrammaton" title="四字神名 [https://en.wikipedia.org/wiki/Tetragrammaton]">四字神名</a></span>. <span lang="zh">遵循这种方式</span>, <span lang="zh">写作者总有一天会写出以</span> <code>YHWH</code> <span lang="zh">作为名字的条目</span>.</p>
+<p><span lang="zh">如果你在别处也看到了这种风格</span>, <span lang="zh">不必认为是巧合</span>. <span lang="zh">它们极有可能都无意识地来自</span> <span class="link external"><a href="https://en.wikipedia.org/wiki/Tetragrammaton" title="四字神名 [https://en.wikipedia.org/wiki/Tetragrammaton]"><span lang="zh">四字神名</span></a></span>. <span lang="zh">遵循这种方式</span>, <span lang="zh">写作者总有一天会写出以</span> <code>YHWH</code> <span lang="zh">作为名字的条目</span>.</p>
 </div>
-</details></section><section class="block" data-taxon=""><details ><summary id="tutorials-new-site"><header><h1><span class="taxon"></span><span lang="zh">新建站点</span> <a class="slug" href="https://kodama-community.github.io/docs/tutorials/new-site.html">[new-site]</a><a class="edit" href="https://github.com/kodama-community/docs/edit/main/trees/tutorials/new-site.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><span lang="zh">用户在</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/tutorials/install.html" title="安装 [tutorials/install]">安装</a></span> <span lang="zh">后</span>, <span lang="zh">可以执行</span> <code>kodama -V</code> <span lang="zh">或</span> <code>kodama --version</code> <span lang="zh">检查是否安装成功</span>.</p>
+</details></section><section class="block" data-taxon=""><details ><summary id="tutorials-new-site"><header><h1><span class="taxon"></span><span lang="zh">新建站点</span> <a class="slug" href="https://kodama-community.github.io/docs/tutorials/new-site.html">[new-site]</a><a class="edit" href="https://github.com/kodama-community/docs/edit/main/trees/tutorials/new-site.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><span lang="zh">用户在</span> <span class="link local"><a href="https://kodama-community.github.io/docs/tutorials/install.html" title="安装 [tutorials/install]"><span lang="zh">安装</span></a></span> <span lang="zh">后</span>, <span lang="zh">可以执行</span> <code>kodama -V</code> <span lang="zh">或</span> <code>kodama --version</code> <span lang="zh">检查是否安装成功</span>.</p>
 <p><span lang="zh">要创建一个新的</span> Kodama <span lang="zh">站点</span>, <span lang="zh">请执行</span>:</p>
 <pre><code class="language-sh">kodama new site &lt;PATH&gt;
 </code></pre>
-<p><span lang="zh">用户可以在该目录的</span> <code>trees/</code> <span lang="zh">下进行</span> <span class="link external"><a href="https://commonmark.org" title="Markdown [https://commonmark.org]">Markdown</a></span> <span lang="zh">或</span> <span class="link external"><a href="https://typst.app/docs" title="Typst [https://typst.app/docs]">Typst</a></span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/tutorials/writing.html" title="写作 [tutorials/writing]">写作</a></span>.</p>
-<p><span lang="zh">首次使用</span> <code>serve</code> <span lang="zh">前</span>, <span lang="zh">建议检查</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/config.html" title="配置文件 [references/config]">配置文件</a></span> <span lang="zh">中</span> <code>[serve]</code> <span lang="zh">的</span> <code>command</code>. <span lang="zh">默认命令依赖</span> <span class="link external"><a href="https://github.com/svenstaro/miniserve" title="miniserve [https://github.com/svenstaro/miniserve]">miniserve</a></span>, <span lang="zh">你可以安装它</span>, <span lang="zh">或改为当前设备可用的本地服务命令</span>. <span lang="zh">例如</span>:</p>
+<p><span lang="zh">用户可以在该目录的</span> <code>trees/</code> <span lang="zh">下进行</span> <span class="link external"><a href="https://commonmark.org" title="Markdown [https://commonmark.org]">Markdown</a></span> <span lang="zh">或</span> <span class="link external"><a href="https://typst.app/docs" title="Typst [https://typst.app/docs]">Typst</a></span> <span class="link local"><a href="https://kodama-community.github.io/docs/tutorials/writing.html" title="写作 [tutorials/writing]"><span lang="zh">写作</span></a></span>.</p>
+<p><span lang="zh">首次使用</span> <code>serve</code> <span lang="zh">前</span>, <span lang="zh">建议检查</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/config.html" title="配置文件 [references/config]"><span lang="zh">配置文件</span></a></span> <span lang="zh">中</span> <code>[serve]</code> <span lang="zh">的</span> <code>command</code>. <span lang="zh">默认命令依赖</span> <span class="link external"><a href="https://github.com/svenstaro/miniserve" title="miniserve [https://github.com/svenstaro/miniserve]">miniserve</a></span>, <span lang="zh">你可以安装它</span>, <span lang="zh">或改为当前设备可用的本地服务命令</span>. <span lang="zh">例如</span>:</p>
 <pre><code class="language-toml">command = ["python", "-m", "http.server", "-d", "&lt;output&gt;"]
 </code></pre>
-<p><span lang="zh">如果用户需要生成</span> <span lang="zh"></span><span lang="zh"></span><span class="link external"><a href="https://code.visualstudio.com/docs/editing/userdefinedsnippets" title="VSCode 风格的 snippets 文件 [https://code.visualstudio.com/docs/editing/userdefinedsnippets]">VSCode 风格的 snippets 文件</a></span>, <span lang="zh">进而借助其</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]"><span lang="zh">节</span></a></span> <span lang="zh">代码补全功能</span> <sup class="footnote-reference" id="tutorials_new-site_editor-back"><a href="#tutorials_new-site_editor">1</a></sup>, <span lang="zh">可在</span> Kodama <span lang="zh">站点文件夹内执行</span></p>
+<p><span lang="zh">如果用户需要生成</span> <span class="link external"><a href="https://code.visualstudio.com/docs/editing/userdefinedsnippets" title="VSCode 风格的 snippets 文件 [https://code.visualstudio.com/docs/editing/userdefinedsnippets]">VSCode <span lang="zh">风格的</span> snippets <span lang="zh">文件</span></a></span>, <span lang="zh">进而借助其</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/section.html" title="节 [references/section]"><span lang="zh">节</span></a></span> <span lang="zh">代码补全功能</span> <sup class="footnote-reference" id="tutorials_new-site_editor-back"><a href="#tutorials_new-site_editor">1</a></sup>, <span lang="zh">可在</span> Kodama <span lang="zh">站点文件夹内执行</span></p>
 <pre><code class="language-sh">kodama snip --section
 </code></pre>
 <p><span lang="zh">除此之外</span>, <code>kodama snip</code> <span lang="zh">也可以用于生成</span> $\KaTeX$ <span lang="zh">宏补全文件和</span> <code>inline-section</code> <span lang="zh">可用代码片段</span>.</p>
@@ -721,9 +659,9 @@ Options:
 </code></pre>
 <div class="footnote-definition" id="tutorials_new-site_editor">
   <sup class="footnote-definition-label"><a href="#tutorials_new-site_editor-back">1</a></sup>
-<p><span lang="zh"></span><span class="link external"><a href="https://code.visualstudio.com/docs/editing/userdefinedsnippets" title="Snippets 补全功能 [https://code.visualstudio.com/docs/editing/userdefinedsnippets]">Snippets 补全功能</a></span> <span lang="zh">在非</span> <span class="link external"><a href="https://code.visualstudio.com/" title="VSCode [https://code.visualstudio.com/]">VSCode</a></span> <span lang="zh">的编辑器上是否可用需要自行探索</span>.</p>
+<p><span class="link external"><a href="https://code.visualstudio.com/docs/editing/userdefinedsnippets" title="Snippets 补全功能 [https://code.visualstudio.com/docs/editing/userdefinedsnippets]">Snippets <span lang="zh">补全功能</span></a></span> <span lang="zh">在非</span> <span class="link external"><a href="https://code.visualstudio.com/" title="VSCode [https://code.visualstudio.com/]">VSCode</a></span> <span lang="zh">的编辑器上是否可用需要自行探索</span>.</p>
 </div>
-</details></section><section class="block" data-taxon=""><details ><summary id="tutorials-upgrade-config"><header><h1><span class="taxon"></span><span lang="zh">升级配置</span> <a class="slug" href="https://kodama-community.github.io/docs/tutorials/upgrade-config.html">[upgrade-config]</a><a class="edit" href="https://github.com/kodama-community/docs/edit/main/trees/tutorials/upgrade-config.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><span lang="zh">从旧版本迁移到新版本时</span>, <span lang="zh">用户也许希望自动适配最新的</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/config.html" title="配置文件 [references/config]">配置文件</a></span> <span lang="zh">结构</span>.
+</details></section><section class="block" data-taxon=""><details ><summary id="tutorials-upgrade-config"><header><h1><span class="taxon"></span><span lang="zh">升级配置</span> <a class="slug" href="https://kodama-community.github.io/docs/tutorials/upgrade-config.html">[upgrade-config]</a><a class="edit" href="https://github.com/kodama-community/docs/edit/main/trees/tutorials/upgrade-config.md">[edit]</a></h1><div class="metadata"><ul></ul></div></header></summary><p><span lang="zh">从旧版本迁移到新版本时</span>, <span lang="zh">用户也许希望自动适配最新的</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/config.html" title="配置文件 [references/config]"><span lang="zh">配置文件</span></a></span> <span lang="zh">结构</span>.
 <span lang="zh">对于这种需求</span>, <span lang="zh">可以使用</span> <code>upgrade</code> <span lang="zh">命令</span>. <span lang="zh">执行</span> <code>kodama upgrade</code> <span lang="zh">即可自动读取旧文件的信息并转换到新格式</span>.</p>
-<p><span lang="zh">如果</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/config.html" title="配置文件 [references/config]">配置文件</a></span> <span lang="zh">名字不为默认的</span> <code>Kodama.toml</code>, <span lang="zh">请使用可选参数</span> <code>--config</code> <span lang="zh">指定</span>. <span lang="zh">如果希望保留新旧</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/config.html" title="配置文件 [references/config]">配置文件</a></span>, <span lang="zh">可通过</span> <code>--output</code> <span lang="zh">指定新</span> <span lang="zh"></span><span class="link local"><a href="https://kodama-community.github.io/docs/references/config.html" title="配置文件 [references/config]">配置文件</a></span> <span lang="zh">文件的路径</span>.</p>
+<p><span lang="zh">如果</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/config.html" title="配置文件 [references/config]"><span lang="zh">配置文件</span></a></span> <span lang="zh">名字不为默认的</span> <code>Kodama.toml</code>, <span lang="zh">请使用可选参数</span> <code>--config</code> <span lang="zh">指定</span>. <span lang="zh">如果希望保留新旧</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/config.html" title="配置文件 [references/config]"><span lang="zh">配置文件</span></a></span>, <span lang="zh">可通过</span> <code>--output</code> <span lang="zh">指定新</span> <span class="link local"><a href="https://kodama-community.github.io/docs/references/config.html" title="配置文件 [references/config]"><span lang="zh">配置文件</span></a></span> <span lang="zh">文件的路径</span>.</p>
 </details></section></details></section></footer></article></div></body></html>
